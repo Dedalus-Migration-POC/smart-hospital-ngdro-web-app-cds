@@ -1,0 +1,29 @@
+<div class="modal d-block">
+  <div class="modal-dialog">
+      <div class="modal-content {{'modal-border-left-' + modal.type | lowercase  }}">
+        <div class="modal-header">
+            <ng-container [ngSwitch]="modal.type">
+              <ng-container *ngSwitchCase="Type.SUCCESS">
+                <fa-icon [icon]="['fas', 'circle-check']"
+                         class="fs-3 {{'text-' + Type.SUCCESS | lowercase }}"></fa-icon>
+              </ng-container>
+              <ng-container *ngSwitchCase="Type.INFO">
+                <fa-icon [icon]="['fas', 'circle-info']"
+                         class="fs-3 {{'text-' + Type.INFO | lowercase }}"></fa-icon>
+              </ng-container>
+              <ng-container *ngSwitchCase="Type.ERROR">
+                <fa-icon [icon]="['fas', 'circle-exclamation']"
+                         class="fs-3 {{'text-' + Type.INFO | lowercase }}"></fa-icon>
+              </ng-container>
+            </ng-container>
+
+          <h4 class="modal-title ms-3">{{ modal.title }}</h4>
+          <button type="button" class="btn-close" (click)="onClose()"></button>
+        </div>
+        <div class="modal-body">{{ modal.contentBody }}</div>
+        <div class="modal-footer">
+          {{ modal.contentFooter }}
+        </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+{
+  "header": {
+    "modules": "Modulistica",
+    "contacts": "Contatti"
+  },
+  "home": {
+    "reportService": "Servizio referti online",
+    "viewDownload": "Consulta e scarica i referti degli esami\neffettuati presso le nostre sedi.",
+    "cardReport": {
+      "pickup": "Ritiro referto",
+      "form": {
+        "cod": "Codice ritiro",
+        "codValidation": "*Rispetta le maiuscole e minuscole",
+        "cf": "Codice fiscale",
+        "viewPdf": "Visualizza referto"
+      }
+    },
+    "faq": "FAQ - Domande frequenti"
+  },
+  "footer": {
+    "project": "Progetto di",
+    "cds": "La tua casa della salute",
+    "collaboration": "con la collaborazione di"
+  }
+}

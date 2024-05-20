@@ -1,0 +1,33 @@
+@import "shared-variables-bootstrap";
+
+.modal-content {
+  border-left-width: 6px;
+
+  &.modal-border-left-success {
+    border-left-color: var(--#{$prefix}success);
+  }
+
+  &.modal-border-left-danger {
+    border-left-color: var(--#{$prefix}danger);
+  }
+
+  &.modal-border-left-info {
+    border-left-color: var(--#{$prefix}info);
+  }
+
+  //&.modal-border-left-warning {
+  //  border-left-color: var(--#{$prefix}warning);
+  //}
+
+  //.modal-header__icon {
+  //  width: 1rem;
+  //  margin-right: 2rem;
+  //}
+
+  .modal-body,
+  .modal-footer {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+}
+

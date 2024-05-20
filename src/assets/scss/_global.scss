@@ -1,0 +1,46 @@
+// Floating label
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  @extend .fw-bold;
+
+  color: var(--#{$prefix}body-color);
+}
+
+// Accordion
+%body-color {
+  color: var(--#{$prefix}body-color, #1a1a1a);
+}
+
+.accordion-item {
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+
+  .accordion-header {
+    width: 100%;
+
+    .accordion-button {
+      @extend .fw-semibold;
+
+      flex-direction: row-reverse;
+      justify-content: start;
+      font-size: 1.125rem;
+
+      &:not(.collapsed) {
+        @extend .border-top;
+        @extend .text-decoration-underline;
+      }
+
+      &:after {
+        margin-left: unset;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  .accordion-body {
+      color: var(--#{$prefix}body-color, #1a1a1a);
+  }
+}
+

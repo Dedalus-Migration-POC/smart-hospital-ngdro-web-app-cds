@@ -1,0 +1,17 @@
+@import "shared-variables-bootstrap";
+
+.footer {
+  --#{$prefix}footer-bg: #262626;
+
+  min-height: 226px;
+
+  &-bg {
+    background-color: var(--#{$prefix}footer-bg);
+  }
+
+  & >.container {
+    .footer__logo {
+      height: 70px;
+    }
+  }
+}

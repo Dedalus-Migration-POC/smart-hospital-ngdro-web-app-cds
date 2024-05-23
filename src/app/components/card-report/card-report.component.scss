@@ -1,4 +1,4 @@
-@import 'shared-variables-bootstrap';
+@import 'shared-variables';
 
 .card {
   --#{$prefix}card-spacer-y: 2.5rem;
@@ -10,8 +10,8 @@
       height: 221px;
     }
 
-    .pickupCode-info {
-      font-size: .75rem;
+    .pick-code-validation {
+      margin-bottom: 2rem;
     }
 
     .btn-primary.card__btn-view {

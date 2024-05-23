@@ -1,0 +1,9 @@
+<div class="d-flex flex-column align-items-center justify-content-center" [ngClass]="{'spinner-overlay': appendToBody }">
+  <div class="spinner-border" [ngClass]="styleClass" role="status">
+    <span class="visually-hidden">{{ 'spinner.load' | translate }}.</span>
+  </div>
+  <label *ngIf="showLabel" class="mt-1">
+    {{ 'spinner.load' | translate }}
+  </label>
+</div>
+

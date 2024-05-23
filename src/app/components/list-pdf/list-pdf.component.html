@@ -1,0 +1,25 @@
+<div class="list-pdf container">
+  <div class="row g-0 mb-2">
+    <div class="col-12">
+      <label class="fs-3 fw-semibold">{{ 'report.list-pdf.documents' | translate }}</label>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <ul class="list-group list-group-horizontal gap-3 border-none flex-wrap">
+        <li class="list-group-item" *ngFor="let pdf of list">
+          <div class="d-flex flex-row align-items-center justify-content-center">
+            <img src="assets/images/file-pdf-primary.svg" height="36" width="36" alt="file pdf" />
+            <div class="d-flex flex-column">
+              <label class="fs-lg">{{ pdf.name + '.pdf' }}</label>
+              <a href="javascript:void(0)" class="text-decoration-none fs-sm fw-semibold lh-sm" (click)="viewPdf(pdf)">
+                {{ 'report.list-pdf.view' | translate }}
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

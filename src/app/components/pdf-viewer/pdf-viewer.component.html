@@ -1,0 +1,31 @@
+<div class="row g-0 mt-4 px-3 bg-yellow align-items-center">
+  <div class="col-xs-12 col-md-8 col-lg-9">
+      <img src="assets/images/file-pdf.svg">
+      <label class="ms-2">{{ fileName + '.pdf' }}</label>
+  </div>
+  <div class="col-xs-12 col-md-4 col-lg-3">
+    <div class="d-flex gap-3 justify-content-end">
+      <button type="button" class="btn btn-link text-decoration-none px-0" (click)="downloadPDF()">
+        <img src="assets/images/download.svg">
+        {{ 'report.download' | translate }}
+      </button>
+
+      <button type="button" class="btn btn-link text-decoration-none px-0" (click)="printPDF()">
+        <img src="assets/images/print.svg">
+        {{ 'report.print' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-12">
+    <pdf-viewer [src]="pdfSrc"
+                [rotation]="0"
+                [original-size]="true"
+                [autoresize]="true"
+                [fit-to-page]="false">
+    </pdf-viewer>
+  </div>
+</div>
+

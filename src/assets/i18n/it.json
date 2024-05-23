@@ -9,17 +9,35 @@
     "cardReport": {
       "pickup": "Ritiro referto",
       "form": {
-        "cod": "Codice ritiro",
-        "codValidation": "*Rispetta le maiuscole e minuscole",
+        "pickupCode": "Codice ritiro",
+        "pickupCodeValidation": "*Rispetta le maiuscole e minuscole",
         "cf": "Codice fiscale",
-        "viewPdf": "Visualizza referto"
+        "viewPdf": "Visualizza referto",
+        "error": {
+          "fiscalCodeNotValid": "Codice fiscale non valido."
+        }
       }
     },
     "faq": "FAQ - Domande frequenti"
+  },
+  "report": {
+    "back": "Torna indietro",
+    "download": "Scarica",
+    "print": "Stampa",
+    "openReport": "Apri referto",
+    "releaseDate": "Creato il {{date}} alle {{time}}",
+    "list-pdf": {
+      "documents": "Documenti",
+      "view": "Visualizza",
+      "viewing": "Stai visualizzando"
+    }
   },
   "footer": {
     "project": "Progetto di",
     "cds": "La tua casa della salute",
     "collaboration": "con la collaborazione di"
+  },
+  "spinner": {
+    "load": "Caricamento in corso.."
   }
 }

@@ -1,0 +1,8 @@
+@import "shared-variables";
+
+pdf-viewer {
+  display: block;
+  width: 100%;
+  height: 500px; /* O una dimensione appropriata */
+  background: var(--#{$prefix}gray-600, #878787);
+}

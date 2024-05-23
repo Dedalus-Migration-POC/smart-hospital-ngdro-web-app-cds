@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Modal, Type } from './modal';
+import { Modal, Type } from '../../models/modal';
 import { ModalService } from '../../services/modal.service';
 
 @Component({

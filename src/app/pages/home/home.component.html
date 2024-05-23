@@ -1,25 +1,24 @@
-<div class="home">
-  <div class="container">
-    <div class="row mt-5">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 col-xxl-5">
-        <div class="d-flex flex-column justify-content-start gap-3">
-          <h1 class="mb-0">{{'home.reportService' | translate}}</h1>
-          <img src="assets/images/cds-logo.svg" class="home__logo" alt="cds-logo" />
-          <h4 class="mb-0 fw-normal lh-base mb-4">
-            <span [innerHTML]="'home.viewDownload' | translate | newlineToBr"></span>
-          </h4>
-        </div>
+<div class="container home">
+  <div class="row mt-5">
+    <div class="col-12 col-lg-5">
+      <div class="d-flex flex-column justify-content-start gap-3 px-2">
+        <h1 class="mb-0">{{'home.reportService' | translate}}</h1>
+        <img src="assets/images/cds-logo.svg" class="home__logo" alt="cds-logo" />
+        <h4 class="mb-0 fw-normal lh-base mb-4">
+          <span [innerHTML]="'home.viewDownload' | translate | newlineToBr"></span>
+        </h4>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 col-xxl-7">
-        <app-card-report></app-card-report>
-      </div>
+    </div>
+    <div class="col-12 col-lg-7">
+      <app-card-report (patientReport)="getReport($event)"></app-card-report>
     </div>
   </div>
 
-  <img src="assets/images/home-banner.svg" class="mw-100 mt-n5" alt="home-banner">
-
-  <div class="d-flex mt-n5">
-    <app-faq class="w-100"></app-faq>
-  </div>
+  <img src="assets/images/home-banner.svg" class="mw-100 home__bg ms-n4" alt="home-banner">
 </div>
 
+<div class="d-flex">
+  <app-faq class="w-100"></app-faq>
+</div>
+
+<app-load-spinner *ngIf="isLoading" [showLabel]="false" [styleClass]="'text-yellow'" [appendToBody]="true"></app-load-spinner>

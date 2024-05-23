@@ -15,32 +15,12 @@ $black:               #000 !default;
 
 $blue:                  #003DA6 !default;
 $red:                   #dc3545 !default;
-$yellow:                #ffc107 !default;
+$yellow:                #e1ad18 !default;
 $green:                 #007167 !default;
-$cyan:                  #0093D9 !default;
+$cyan:                  #00c6b2 !default;
 
 
 $primary:               $blue !default;
-$secondary:             $gray-600 !default;
-$success:               $green !default;
-$info:                  $cyan !default;
-$warning:               $yellow !default;
-$danger:                $red !default;
-$light:                 $gray-100 !default;
-$dark:                  $gray-900 !default;
-
-$theme-colors: (
-  "primary": $primary,
-  "secondary": $secondary,
-  "success": $success,
-  "info": $info,
-  "warning": $warning,
-  "danger": $danger,
-  "light": $light,
-  "dark": $dark,
-  "tiffany": $tiffany,
-  "amber": $amber
-) !default;
 
 // Options
 
@@ -65,7 +45,10 @@ $box-shadow:                  0px 3px 4px 0px rgba(0, 0, 0, 0.25) !default;
 
 $font-family-sans-serif:      'Titillium Web', 'Montserrat', Roboto !default;
 
-$headings-font-weight:        600 !default;
+$font-size-base:               1rem !default;
+$font-size-lg:                 $font-size-base * 1.15 !default;
+
+$headings-font-weight:         600 !default;
 
 // Forms
 
@@ -81,7 +64,7 @@ $form-floating-padding-y:               .25rem !default;
 $form-floating-input-padding-t:         .25rem !default;
 $form-floating-input-padding-b:         .25rem !default;
 $form-floating-line-height:             24px !default;
-$form-floating-label-transform:         scale(.85) translateY(-1.3rem) !default;
+$form-floating-label-transform:         scale(.85) translateY(-2rem) !default;
 
 // Cards
 

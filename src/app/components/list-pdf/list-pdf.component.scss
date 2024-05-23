@@ -1,0 +1,24 @@
+@import "shared-variables";
+
+.list-pdf {
+  .list-group {
+    --#{$prefix}list-group-border-width: 0px;
+    --#{$prefix}list-group-bg: #f2f2f2;
+    --#{$prefix}list-group-border-radius: .5rem;
+    --#{$prefix}list-group-item-padding-y: .813rem;
+    --#{$prefix}list-group-item-padding-x: 1.188rem;
+
+    &.list-group-horizontal > .list-group-item {
+      &:first-child:not(:last-child) {
+       border-top-right-radius: var(--#{$prefix}list-group-border-radius);
+      }
+
+      & + .list-group-item {
+        border-top-left-radius: var(--#{$prefix}list-group-border-radius);
+        border-top-right-radius: var(--#{$prefix}list-group-border-radius);
+        border-bottom-left-radius: var(--#{$prefix}list-group-border-radius);
+        border-bottom-right-radius: var(--#{$prefix}list-group-border-radius);
+      }
+    }
+  }
+}

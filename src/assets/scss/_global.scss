@@ -1,3 +1,20 @@
+// Height
+
+html, body {
+  height: 100%;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+app-home,
+app-report {
+  flex-grow: 1;
+}
+
 // Floating label
 
 .form-floating > .form-control:focus ~ label,
@@ -44,3 +61,31 @@
   }
 }
 
+/****** NEW CLASSES *****/
+
+// BG and color YELLOW (amber)
+
+.bg-yellow {
+  background-color: var(--#{$prefix}yellow, #e1ad18);
+}
+
+.text-yellow {
+  color: var(--#{$prefix}yellow, #e1ad18);
+}
+
+// Font-size
+
+.fs-sm {
+  font-size: var(--#{$prefix}font-size-sm, $font-size-sm);
+}
+
+.fs-lg {
+  font-size: var(--#{$prefix}font-size-lg, $font-size-lg);
+}
+
+/****** NEW PROPERTIES *****/
+
+:root {
+  --#{$prefix}font-size-sm: #{$font-size-sm};
+  --#{$prefix}font-size-lg: #{$font-size-lg};
+}

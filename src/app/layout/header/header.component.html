@@ -1,5 +1,5 @@
-<nav class="bg-tiffany border-bottom">
-  <div class="container d-flex flex-wrap py-1 px-0">
+<nav class="bg-info border-bottom">
+  <div class="container d-flex flex-wrap py-1">
     <ul class="nav me-auto">
       <li class="nav-item">
         <a href="#" class="nav-link link-dark px-2">{{ 'header.modules' | translate }}</a>
@@ -15,8 +15,11 @@
     </ul>
   </div>
 </nav>
+
 <header class="py-2 border-bottom shadow">
-  <div class="container d-flex flex-wrap justify-content-start px-2">
-   <img src="assets/images/cds-logo.svg" class="header__logo" alt="cds-logo" />
+  <div class="container d-flex flex-wrap justify-content-start">
+    <a href="javascript:void(0)" routerLink="/home">
+      <img src="assets/images/cds-logo.svg" class="header__logo px-2" alt="cds-logo" />
+    </a>
   </div>
 </header>

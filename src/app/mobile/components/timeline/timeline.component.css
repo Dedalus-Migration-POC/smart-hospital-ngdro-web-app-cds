@@ -1,0 +1,50 @@
+.container {
+  margin-bottom: 20px;
+}
+
+.timeline-back {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 10px -8px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.timeline {
+  display: flex;
+  justify-content: space-around;
+}
+
+.timeline-step {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.timeline-number {
+  width: 50px;
+  border: 2px solid #508bb0;
+  border-radius: 50%;
+  padding: 2px;
+  margin: 0 7.5%;
+}
+
+.timeline-number-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.timeline-number-inner fa-icon {
+  height: 24px;
+  color: #508bb0;
+}
+
+.timeline-line {
+  width: 100%;
+  height: 2px;
+  background-color: #508bb0;
+}

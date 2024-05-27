@@ -1,1 +1,399 @@
 <app-signup-buttons></app-signup-buttons>
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+  <div style="height: 10px"></div>
+  <app-login-mobile-timeline
+    [step]="signUpService.step"
+    [steps]="signUpService.steps"
+    [stepsCompleted]="signUpService.stepsCompleted"
+    [onPrevStep]="onPrevStep"
+  ></app-login-mobile-timeline>
+
+  <ng-container *ngIf="signUpService.step === 0">
+    <div class="form-group">
+      <label for="signup.firstName">Nome</label>
+      <input
+        id="signup.firstName"
+        class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+        formControlName="firstName"
+        autocomplete="given-name"
+      />
+      <span class="field-error" *ngIf="isRequired('firstName')">
+        Questo campo è obbligatorio
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="signup.lastName">Cognome</label>
+      <input
+        id="signup.lastName"
+        class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+        formControlName="lastName"
+        autocomplete="family-name"
+      />
+      <span class="field-error" *ngIf="isRequired('lastName')">
+        Questo campo è obbligatorio
+      </span>
+    </div>
+
+    <div class="form-group">
+      <ng-container formGroupName="identity">
+        <label for="signup.identity">Codice Fiscale</label>
+        <input
+          id="signup.identity"
+          class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+          formControlName="identity"
+          autocomplete="username"
+          maxlength="16"
+          toUppercase
+        />
+
+        <span class="field-error" *ngIf="isRequired('identity')">
+          Questo campo è obbligatorio
+        </span>
+        <span
+          class="field-error"
+          *ngIf="
+            signUpForm.controls.identity.controls.identity.hasError(
+              'invalidFiscalCode'
+            ) &&
+            !signUpForm.controls.identity.controls.identity.hasError('required')
+          "
+        >
+          Il codice fiscale inserito non sembra valido
+        </span>
+      </ng-container>
+    </div>
+
+    <div class="form-group">
+      <label for="signup.phoneNumber">Cellulare</label>
+      <input
+        id="signup.phoneNumber"
+        class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+        formControlName="phoneNumber"
+        autocomplete="tel"
+        maxlength="16"
+      />
+
+      <span class="field-error" *ngIf="isRequired('phoneNumber')">
+        Questo campo è obbligatorio
+      </span>
+      <span
+        class="field-error"
+        *ngIf="
+          signUpForm.controls.phoneNumber.hasError('notItalianPhone') &&
+          !signUpForm.controls.phoneNumber.hasError('required')
+        "
+      >
+        Non sono consentiti numeri non italiani
+      </span>
+      <span
+        class="field-error"
+        *ngIf="
+          signUpForm.controls.phoneNumber.hasError('invalidPhone') &&
+          !signUpForm.controls.phoneNumber.hasError('required') &&
+          !signUpForm.controls.phoneNumber.hasError('notItalianPhone')
+        "
+      >
+        Il numero inserito non sembra corretto
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="signup.email">Email</label>
+      <input
+        id="signup.email"
+        class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+        formControlName="email"
+        autocomplete="email"
+      />
+
+      <span class="field-error" *ngIf="isRequired('email')">
+        Questo campo è obbligatorio
+      </span>
+      <span
+        class="field-error"
+        *ngIf="
+          !isRequired('email') &&
+          signUpForm.controls.email.touched &&
+          signUpForm.controls.email.hasError('invalidEmail')
+        "
+      >
+        L'indirizzo inserito non sembra valido
+      </span>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="signUpService.step === 1">
+    <ng-container formGroupName="residence">
+      <div class="form-group">
+        <label for="signup.street">Via/Piazza</label>
+        <input
+          id="signup.street"
+          class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+          formControlName="street"
+          autocomplete="street-address"
+        />
+
+        <span class="field-error" *ngIf="isResidenceRequired('street')">
+          Questo campo è obbligatorio
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="signup.number">Numero civico</label>
+        <input
+          id="signup.number"
+          class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+          formControlName="number"
+          autocomplete="house-number"
+        />
+
+        <span class="field-error" *ngIf="isResidenceRequired('number')">
+          Questo campo è obbligatorio
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="userProfileForm.municipalityName">Città</label>
+        <div class="autocomplete-container">
+          <input
+            id="userProfileForm.municipalityName"
+            formControlName="municipalityName"
+            type="text"
+            class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+            (focus)="showCities = true"
+            (blur)="onCityFieldBlur($event)"
+            (input)="filterCities($event)"
+          />
+          <ng-container
+            *ngIf="
+              showCities &&
+              (autocompleteService.filteredCities$ | async)?.length
+            "
+          >
+            <ul *ngIf="autocompleteService.filteredCities$ | async as cities">
+              <li
+                *ngFor="let city of cities"
+                (mousedown)="onCitySelection(city)"
+              >
+                {{ city.label }}
+              </li>
+            </ul></ng-container
+          >
+        </div>
+        <span
+          class="field-error"
+          *ngIf="
+            signUpForm.controls.residence.controls.municipalityName.touched &&
+            signUpForm.controls.residence.controls.municipalityName.hasError(
+              'required'
+            )
+          "
+        >
+          Questo campo è obbligatorio
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="userProfileForm.zipCode">CAP</label>
+        <div class="autocomplete-container">
+          <input
+            id="userProfileForm.zipCode"
+            formControlName="zipCode"
+            type="text"
+            maxlength="5"
+            class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+            (blur)="onZipFieldBlur()"
+          />
+          <ng-container
+            *ngIf="
+              showZipCodes && (autocompleteService.zipCodes$ | async)?.length
+            "
+          >
+            <ul *ngIf="autocompleteService.zipCodes$ | async as zipCodes">
+              <li
+                *ngFor="let zip of zipCodes"
+                (mousedown)="onZipSelection(zip)"
+              >
+                {{ zip }}
+              </li>
+            </ul></ng-container
+          >
+        </div>
+        <span
+          class="field-error"
+          *ngIf="
+            signUpForm.controls.residence.controls.zipCode.touched &&
+            signUpForm.controls.residence.controls.zipCode.hasError('required')
+          "
+        >
+          Questo campo è obbligatorio
+        </span>
+        <span
+          class="field-error"
+          *ngIf="
+            signUpForm.controls.residence.controls.zipCode.hasError(
+              'minlength'
+            ) &&
+            !signUpForm.controls.residence.controls.zipCode.hasError('required')
+          "
+        >
+          Il CAP è composto da 5 cifre
+        </span>
+      </div>
+    </ng-container>
+
+    <div class="form-group">
+      <label for="signup.nationality">Nazionalità</label>
+      <div class="autocomplete-container">
+        <input
+          id="signup.nationality"
+          formControlName="nationality"
+          type="text"
+          class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+          (focus)="showNations = true"
+          (input)="filterNations($event, 'nationality')"
+          (blur)="showNations = false; onNationFieldBlur($event, 'nationality')"
+        />
+        <ng-container
+          *ngIf="
+            showNations &&
+            (autocompleteService.filteredNations$ | async)?.length
+          "
+        >
+          <ul *ngIf="autocompleteService.filteredNations$ | async as nations">
+            <li
+              *ngFor="let nation of nations"
+              (mousedown)="
+                showNations = false; onNationSelection(nation, 'nationality')
+              "
+            >
+              {{ nation.label }}
+            </li>
+          </ul></ng-container
+        >
+      </div>
+      <span class="field-error" *ngIf="isRequired('nationality')">
+        Questo campo è obbligatorio
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="signup.citizenship">Cittadinanza</label>
+      <div class="autocomplete-container">
+        <input
+          id="signup.citizenship"
+          formControlName="citizenship"
+          type="text"
+          class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+          (focus)="showCitizenship = true"
+          (input)="filterNations($event, 'citizenship')"
+          (blur)="
+            showCitizenship = false; onNationFieldBlur($event, 'citizenship')
+          "
+        />
+        <ng-container
+          *ngIf="
+            showCitizenship &&
+            (autocompleteService.filteredNations$ | async)?.length
+          "
+        >
+          <ul *ngIf="autocompleteService.filteredNations$ | async as nations">
+            <li
+              *ngFor="let nation of nations"
+              (mousedown)="
+                showCitizenship = false;
+                onNationSelection(nation, 'citizenship')
+              "
+            >
+              {{ nation.label }}
+            </li>
+          </ul></ng-container
+        >
+      </div>
+      <span class="field-error" *ngIf="isRequired('citizenship')">
+        Questo campo è obbligatorio
+      </span>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="signUpService.step === 2">
+    <div class="form-group">
+      <label for="signup.password">Password</label>
+      <input
+        id="signup.password"
+        class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+        formControlName="password"
+        autocomplete="new-password"
+        [type]="hidePassword1 ? 'password' : 'text'"
+      />
+      <span class="field-error" *ngIf="isRequired('password')">
+        Questo campo è obbligatorio
+      </span>
+      <span
+        class="field-error"
+        *ngIf="
+          signUpForm.controls.password.touched &&
+          signUpForm.controls.password.hasError('invalidPassword') &&
+          !isRequired('password')
+        "
+      >
+        La password può contenere da 8 a 20 caratteri con almeno una lettera
+        maiuscola ed un carattere speciale
+        <br />
+        <span>{{ "( ! @ # $ % ^ & * )" }}</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="signup.password2">Conferma Password</label>
+      <input
+        id="signup.password2"
+        class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+        formControlName="password2"
+        autocomplete="new-password"
+        [type]="hidePassword2 ? 'password' : 'text'"
+      />
+      <span class="field-error" *ngIf="isRequired('password2')">
+        Questo campo è obbligatorio
+      </span>
+      <span
+        class="field-error"
+        *ngIf="
+          signUpForm.controls.password2.touched &&
+          signUpForm.controls.password2.hasError('matching') &&
+          !isRequired('password2')
+        "
+      >
+        Le password non coincidono
+      </span>
+    </div>
+  </ng-container>
+
+  <div style="height: 30px"></div>
+
+  <div class="signup-error" *ngIf="registrationError">
+    E' avvenuto un errore. Se il problema presiste riprovare più tardi.
+  </div>
+
+  <div class="registering" *ngIf="registering">Attendere...</div>
+
+  <button
+    mat-button
+    [disabled]="!canContinue() || registering"
+    [ngStyle]="{ opacity: !canContinue() || registering ? 0.5 : undefined }"
+    type="submit"
+  >
+    {{ confirmButtonLabel | translate | toUpperCase }}
+  </button>
+  <div style="height: 15px"></div>
+  <button
+    mat-raised-button
+    type="button"
+    [disabled]="registering"
+    (click)="onCancel()"
+  >
+    {{ "cancel" | translate | uppercase }}
+  </button>
+  <div style="height: 30px"></div>
+</form>

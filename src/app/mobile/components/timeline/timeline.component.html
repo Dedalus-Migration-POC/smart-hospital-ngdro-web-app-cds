@@ -1,0 +1,33 @@
+<div class="container">
+  <div *ngIf="step > 0" class="timeline-back">
+    <fa-icon [icon]="['fas', 'arrow-left']" (click)="onPrevStep()"></fa-icon>
+    <span class="mx-3" (click)="onPrevStep()">Indietro</span>
+  </div>
+  <div
+    class="timeline"
+    [style]="{ 'margin-top': step === 0 ? '20px' : '15px' }"
+  >
+    <div class="timeline-step" *ngFor="let step of steps">
+      <div
+        class="timeline-line"
+        [style]="{ opacity: stepsCompleted.includes(step) ? 1 : 0.5 }"
+      ></div>
+      <div
+        class="timeline-number"
+        [style]="{ opacity: stepsCompleted.includes(step) ? 1 : 0.5 }"
+      >
+        <div class="timeline-number-inner">
+          <fa-icon
+            [icon]="['fas', 'check']"
+            *ngIf="stepsCompleted.includes(step); else stepNumber"
+          ></fa-icon>
+        </div>
+        <ng-template #stepNumber>{{ step + 1 }}</ng-template>
+      </div>
+      <div
+        class="timeline-line"
+        [style]="{ opacity: stepsCompleted.includes(step + 1) ? 1 : 0.5 }"
+      ></div>
+    </div>
+  </div>
+</div>

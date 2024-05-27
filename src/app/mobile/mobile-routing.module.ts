@@ -15,7 +15,7 @@ export const routes: Routes = [
         component: LoginComponent,
       },
       {
-        path: 'otp',
+        path: 'login/otp',
         component: OtpComponent,
       },
       {

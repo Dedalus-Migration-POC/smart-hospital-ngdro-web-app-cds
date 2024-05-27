@@ -1,5 +1,3 @@
-const winston = require("winston");
-
 const staging = "http://54.155.59.59:89";
 const integration = "https://digitalservices-test.mondino.it:89";
 const prod = "https://digitalservices.mondino.it:89";
@@ -21,7 +19,7 @@ module.exports = routes.reduce(
   (acc, curr) => ({
     ...acc,
     [`${curr}/**`]: {
-      target: "https://digitalservices-test.mondino.it:89",
+      target: integration,
       secure: false,
       changeOrigin: true,
       logLevel: "debug",

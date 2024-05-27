@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+button {
+  border-radius: 20px;
+  min-height: 50px;
+  padding: 5px 30px;
+  background-color: #22c6b1;
+  border: none;
+  min-width: 50%;
+  color: #262626;
+  font-family: Titillium Web;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+button.inactive {
+  background-color: #fff;
+  border: 1px solid #22c6b1;
+}

@@ -1,4 +1,19 @@
 {
+  "yes": "Sì",
+  "no": "No",
+  "close": "Chiudi",
+  "understood": "Ho capito",
+  "warning": "Attenzione",
+  "authButton": "Accesso",
+  "access": "Accesso",
+  "send": "Invia",
+  "refresh": "Aggiorna",
+  "goAccess": "Accedi",
+  "accessTitle": "Accedi con le tue credenziali",
+  "signUpButton": "Registrazione",
+  "signUp": "Registrati",
+  "confirm": "Conferma",
+  "confirm-and-continue": "Conferma e prosegui",
   "header": {
     "modules": "Modulistica",
     "contacts": "Contatti"
@@ -39,5 +54,18 @@
   },
   "spinner": {
     "load": "Caricamento in corso.."
+  },
+  "mobile": {
+    "signup-buttons": {
+      "auth": "Accesso",
+      "signup": "Registrazione"
+    },
+    "login": {
+      "fiscalCode": "Codice fiscale",
+      "invalidFiscalCode": "Il codice fiscale inserito non sembra valido",
+      "password": "Password",
+      "invalidPassword": "La password non è valida",
+      "passwordForgotten": "Password dimenticata?"
+    }
   }
 }

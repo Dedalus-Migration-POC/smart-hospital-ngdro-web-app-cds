@@ -1,1 +1,66 @@
-<p>login works!</p>
+<app-signup-buttons></app-signup-buttons>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="username" class="input-label">{{
+      "mobile.login.fiscalCode" | translate
+    }}</label>
+    <input
+      type="text"
+      class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+      id="username"
+      formControlName="fiscalCode"
+      autocomplete="username"
+      [placeholder]="'mobile.login.fiscalCode' | translate"
+      (keyup.enter)="focusNext()"
+      (keyup.tab)="focusNext()"
+      maxlength="16"
+      toUppercase
+    />
+    <span
+      *ngIf="
+        loginForm.controls.fiscalCode.touched &&
+        loginForm.controls.fiscalCode.hasError('invalidFiscalCode')
+      "
+    >
+      {{ "mobile.login.invalidFiscalCode" | translate }}
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="password" class="input-label">{{
+      "mobile.login.password" | translate
+    }}</label>
+    <input
+      matInput
+      class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+      id="password"
+      (focusin)="onPasswordFocus()"
+      formControlName="password"
+      [type]="hide ? 'password' : 'text'"
+      autocomplete="current-password"
+    />
+    <span *ngIf="error">{{ "mobile.login.invalidPassword" | translate }}</span>
+    <span
+      *ngIf="
+        loginForm.controls.password.touched &&
+        loginForm.controls.password.hasError('required')
+      "
+      >{{ "invalidPassword" | translate }}</span
+    >
+  </div>
+
+  <div class="out-of-form">
+    <button
+      class="mt-5"
+      [disabled]="!loginForm.valid"
+      [style]="loginForm.valid ? '' : 'opacity: 0.5'"
+      type="submit"
+    >
+      {{ "confirm" | translate | toUpperCase }}
+    </button>
+    <a routerLink="password-recovery" class="mt-5">{{
+      "mobile.login.passwordForgotten" | translate
+    }}</a>
+  </div>
+</form>

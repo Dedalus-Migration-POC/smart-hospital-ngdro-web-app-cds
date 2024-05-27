@@ -1,0 +1,27 @@
+<ng-container *ngIf="!signUpMode; else registrationMode">
+  <button [disabled]="true">
+    {{ "mobile.signup-buttons.auth" | translate | toUpperCase }}
+  </button>
+  <button
+    class="ms-2 inactive"
+    routerLink="../signup"
+    [replaceUrl]="true"
+    queryParamsHandling="merge"
+  >
+    {{ "mobile.signup-buttons.signup" | translate | toUpperCase }}
+  </button>
+</ng-container>
+
+<ng-template #registrationMode>
+  <button
+    class="inactive"
+    routerLink="../login"
+    [replaceUrl]="true"
+    queryParamsHandling="merge"
+  >
+    {{ "mobile.signup-buttons.auth" | translate | toUpperCase }}
+  </button>
+  <button class="ms-2" [disabled]="true" type="button">
+    {{ "mobile.signup-buttons.signup" | translate | toUpperCase }}
+  </button>
+</ng-template>

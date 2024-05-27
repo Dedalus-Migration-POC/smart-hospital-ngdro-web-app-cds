@@ -10,7 +10,8 @@
 
     &.list-group-horizontal > .list-group-item {
       &:first-child:not(:last-child) {
-       border-top-right-radius: var(--#{$prefix}list-group-border-radius);
+        border-top-right-radius: var(--#{$prefix}list-group-border-radius);
+        border-bottom-right-radius: var(--#{$prefix}list-group-border-radius);
       }
 
       & + .list-group-item {
@@ -19,6 +20,14 @@
         border-bottom-left-radius: var(--#{$prefix}list-group-border-radius);
         border-bottom-right-radius: var(--#{$prefix}list-group-border-radius);
       }
+
+      &.border.border-primary {
+        --#{$prefix}border-width: 2px;
+      }
+    }
+
+    .list-pdf__viewing {
+      text-color: var(--#{$prefix}gray-600, #878787);
     }
   }
 }

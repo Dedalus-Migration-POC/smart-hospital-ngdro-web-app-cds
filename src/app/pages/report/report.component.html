@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <ng-container [ngSwitch]="currentViewMode">
+  <ng-container [ngSwitch]="view.current">
     <ng-container *ngSwitchCase="ViewMode.IMAGE">
       <ng-container *ngIf="!isLoading">
         <app-frame [urls]="getValues(reportDocument?.additionalInfo!)"></app-frame>
@@ -42,7 +42,7 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="ViewMode.PDF_MULTI">
-      <app-list-pdf [list]="reportDocument?.relatedDocuments!"(showReport)="showReport($event)"></app-list-pdf>
+      <app-list-pdf [list]="reportDocument?.relatedDocuments!" (showPdf)="showPdf($event)" [ngClass]="{'pe-none': isLoading }"></app-list-pdf>
 
       <ng-container *ngIf="!isLoading">
         <app-pdf-viewer [pdfBase64]="pdfDocument?.body?.content"

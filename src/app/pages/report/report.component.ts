@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { format, parseISO } from 'date-fns';
 import { it } from 'date-fns/locale';
 
@@ -18,21 +19,23 @@ export enum ViewMode {
   styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
-  private patient: ReportRequest | null;
-
+  patient: ReportRequest | null;
   reportDocument: ReportDocument | null = null;
   pdfDocument: PdfDocument | null = null;
-
   releaseDateObj: { date: string, time: string } | undefined;
-
   ViewMode = ViewMode;
-  currentViewMode: ViewMode | null = null;
+  view: { returnTo: ViewMode | null; current: ViewMode | null; };
 
   isLoading: boolean = false;
 
   constructor(private sessionService: SessionService,
+              private router: Router,
               private reportService: ReportService) {
     this.patient = this.sessionService.getData('patient');
+    this.view = {
+      returnTo: null,
+      current: null
+    }
   }
 
   ngOnInit(): void {
@@ -47,13 +50,18 @@ export class ReportComponent implements OnInit {
   }
 
   goBack(): void {
-    window.history.back();
+    if (this.view.returnTo) {
+      this.view.current = this.view.returnTo;
+      this.view.returnTo = null;
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 
   getPdfDocument(documentId: string): void {
     this.isLoading = true;
 
-    if (this.currentViewMode === ViewMode.IMAGE) {
+    if (this.view.current === ViewMode.IMAGE) {
       this.changeViewImgToPdf();
     }
 
@@ -74,13 +82,14 @@ export class ReportComponent implements OnInit {
     }
   }
 
-  showReport(report: ReportDocument) {
-    // Pdf selected from a list of pdf (PDF_MULTI)
+  // Pdf selected from a list of pdf (PDF_MULTI)
+  showPdf(report: ReportDocument): void {
     if (!report) { return; }
 
     this.getPdfDocument(report.documentId);
   }
 
+  // Formats the date to be passed as a param in the translate (i18n)
   private getFormatData(data: string): { date: string, time: string } | undefined {
     if (!data) { return; }
 
@@ -104,23 +113,24 @@ export class ReportComponent implements OnInit {
     return pdfRequest;
   }
 
+  // Init display mode between values enum ViewMode
   private initCurrentView() {
     if (this.reportDocument?.mimeType === 'application/dicon') {
       if (this.reportDocument?.additionalInfo && Object.keys(this.reportDocument.additionalInfo).length > 0) {
-        this.currentViewMode = ViewMode.IMAGE;
+        this.view.current = ViewMode.IMAGE;
       }
     } else if (this.reportDocument?.mimeType === 'application/pdf') {
-        this.currentViewMode = (this.reportDocument?.relatedDocuments && this.reportDocument?.relatedDocuments.length > 0) ? ViewMode.PDF_MULTI
+      this.view.current = (this.reportDocument?.relatedDocuments && this.reportDocument?.relatedDocuments.length > 0) ? ViewMode.PDF_MULTI
                                 : ViewMode.PDF_SINGLE ;
     }
   }
 
+  // Change the display mode: IMAGE to PDF (checking if single or multi)
   private changeViewImgToPdf() {
-    // change the display from frame image to pdf (checking if single or multi)
-
     if (this.reportDocument?.relatedDocuments) {
       const numPdf = this.reportDocument?.relatedDocuments.length;
-      this.currentViewMode = numPdf === 1 ? ViewMode.PDF_SINGLE : (numPdf > 1 ? ViewMode.PDF_MULTI : null);
+      this.view.current = numPdf === 1 ? ViewMode.PDF_SINGLE : (numPdf > 1 ? ViewMode.PDF_MULTI : null);
+      this.view.returnTo = ViewMode.IMAGE;
     }
   }
 }

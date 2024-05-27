@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ReportDocument, ReportRequest} from '../../models/report';
 
 @Component({
@@ -6,11 +6,22 @@ import {ReportDocument, ReportRequest} from '../../models/report';
   templateUrl: './list-pdf.component.html',
   styleUrls: ['./list-pdf.component.scss']
 })
-export class ListPdfComponent {
+export class ListPdfComponent implements OnInit {
   @Input() list!: Array<ReportDocument>;
-  @Output() showReport: EventEmitter<ReportDocument> = new EventEmitter<ReportDocument>();
+  @Output() showPdf: EventEmitter<ReportDocument> = new EventEmitter<ReportDocument>();
 
-  viewPdf(pdf: ReportDocument) {
-    this.showReport.emit(pdf);
+  selectedPdf: ReportDocument | null = null;
+
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    this.selectedPdf = this.list[0];
+  }
+
+  selectPdf(pdf: ReportDocument): void {
+    this.selectedPdf = pdf;
+
+    this.showPdf.emit(pdf);
   }
 }

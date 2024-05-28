@@ -99,6 +99,13 @@ $accordion-button-active-icon:           url("data:image/svg+xml;utf8,<svg xmlns
 $modal-content-border-color:              #2F475E !default;
 $modal-content-border-radius:             0px !default;
 
+$modal-inner-padding:                     .5rem !default;
+
 $modal-header-border-width:               0px !default;
 
 $modal-footer-border-width:               1px !default;
+
+
+// Close
+
+$btn-close-focus-shadow:                  none !default;

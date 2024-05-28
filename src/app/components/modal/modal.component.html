@@ -1,5 +1,5 @@
 <div class="modal d-block">
-  <div class="modal-dialog">
+  <div class="modal-dialog" [ngClass]="{ 'modal-dialog-centered': modal.centered }">
       <div class="modal-content {{'modal-border-left-' + modal.type | lowercase  }}">
         <div class="modal-header">
             <ng-container [ngSwitch]="modal.type">
@@ -13,16 +13,16 @@
               </ng-container>
               <ng-container *ngSwitchCase="Type.ERROR">
                 <fa-icon [icon]="['fas', 'circle-exclamation']"
-                         class="fs-3 {{'text-' + Type.INFO | lowercase }}"></fa-icon>
+                         class="fs-3 {{'text-' + Type.ERROR | lowercase }}"></fa-icon>
               </ng-container>
             </ng-container>
 
-          <h4 class="modal-title ms-3">{{ modal.title }}</h4>
+          <h4 class="modal-title">{{ modal.title }}</h4>
           <button type="button" class="btn-close" (click)="onClose()"></button>
         </div>
-        <div class="modal-body">{{ modal.contentBody }}</div>
-        <div class="modal-footer">
-          {{ modal.contentFooter }}
+        <div *ngIf="modal.body" class="modal-body pt-0">{{ modal.body }}</div>
+        <div *ngIf="modal.footer" class="modal-footer">
+          {{ modal.footer }}
         </div>
       </div>
   </div>

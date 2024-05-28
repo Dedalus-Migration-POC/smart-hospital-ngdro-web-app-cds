@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { format, parseISO } from 'date-fns';
 import { it } from 'date-fns/locale';
@@ -6,11 +6,19 @@ import { it } from 'date-fns/locale';
 import { PdfDocument, PdfRequest, ReportDocument, ReportRequest } from '../../models/report';
 import { SessionService } from '../../services/session.service';
 import { ReportService } from "../../services/report.service";
+import { Type } from '../../models/modal';
+import { ModalService } from '../../services/modal.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export enum ViewMode {
   IMAGE = 'IMAGE',
   PDF_SINGLE = 'PDF_SINGLE',
   PDF_MULTI = 'PDF_MULTI',
+}
+
+export enum MimeType {
+  APPLICATION_PDF = "application/pdf",
+  APPLICATION_DICOM = "application/dicom"
 }
 
 @Component({
@@ -23,14 +31,19 @@ export class ReportComponent implements OnInit {
   reportDocument: ReportDocument | null = null;
   pdfDocument: PdfDocument | null = null;
   releaseDateObj: { date: string, time: string } | undefined;
-  ViewMode = ViewMode;
   view: { returnTo: ViewMode | null; current: ViewMode | null; };
 
-  isLoading: boolean = false;
+  ViewMode = ViewMode;
+
+  isLoadingView: boolean = false;
+  isLoadingPdf: boolean = false;
 
   constructor(private sessionService: SessionService,
               private router: Router,
-              private reportService: ReportService) {
+              private reportService: ReportService,
+              private modalService: ModalService,
+              private viewContainerRef: ViewContainerRef,
+              private translateService: TranslateService) {
     this.patient = this.sessionService.getData('patient');
     this.view = {
       returnTo: null,
@@ -59,24 +72,32 @@ export class ReportComponent implements OnInit {
   }
 
   getPdfDocument(documentId: string): void {
-    this.isLoading = true;
 
-    if (this.view.current === ViewMode.IMAGE) {
-      this.changeViewImgToPdf();
-    }
+   this.setLoading(true);
 
     const request = this.setPdfRequest(documentId);
     if (request) {
       this.reportService.getPdfDocument(request).subscribe({
         next: (data: PdfDocument ) => {
-          this.isLoading = false;
+          this.setLoading(false);
+
+          if (this.view.current === ViewMode.IMAGE) {
+            this.changeViewImgToPdf();
+          }
 
           if (data) {
             this.pdfDocument = data;
           }
         },
-        error: (error) => {
-          console.error('Error:', error);
+        error: () => {
+          this.setLoading(false);
+
+          this.modalService.open(this.viewContainerRef, {
+            type: Type.ERROR,
+            title: this.translateService.instant('report.error.title'),
+            body: this.translateService.instant('report.error.pdf'),
+            centered: true
+          });
         }
       });
     }
@@ -100,6 +121,7 @@ export class ReportComponent implements OnInit {
     return { date: formattedDate, time: formattedTime };
   }
 
+  // Set request parameters for the retrieve-document
   private setPdfRequest(documentId: string): PdfRequest | undefined {
     if (!this.patient || !documentId) { return; }
 
@@ -115,13 +137,14 @@ export class ReportComponent implements OnInit {
 
   // Init display mode between values enum ViewMode
   private initCurrentView() {
-    if (this.reportDocument?.mimeType === 'application/dicon') {
+    if (this.reportDocument?.mimeType === MimeType.APPLICATION_DICOM) {
       if (this.reportDocument?.additionalInfo && Object.keys(this.reportDocument.additionalInfo).length > 0) {
         this.view.current = ViewMode.IMAGE;
       }
-    } else if (this.reportDocument?.mimeType === 'application/pdf') {
+    } else if (this.reportDocument?.mimeType === MimeType.APPLICATION_PDF) {
       this.view.current = (this.reportDocument?.relatedDocuments && this.reportDocument?.relatedDocuments.length > 0) ? ViewMode.PDF_MULTI
                                 : ViewMode.PDF_SINGLE ;
+      this.getPdfDocument(this.reportDocument?.documentId);
     }
   }
 
@@ -131,6 +154,15 @@ export class ReportComponent implements OnInit {
       const numPdf = this.reportDocument?.relatedDocuments.length;
       this.view.current = numPdf === 1 ? ViewMode.PDF_SINGLE : (numPdf > 1 ? ViewMode.PDF_MULTI : null);
       this.view.returnTo = ViewMode.IMAGE;
+    }
+  }
+
+  // Set the value for loading, if view change or pdf loading
+  private setLoading(value: boolean) {
+    if (this.view.current === ViewMode.PDF_MULTI) {
+      this.isLoadingPdf = value;
+    } else {
+      this.isLoadingView = value;
     }
   }
 }

@@ -15,19 +15,13 @@
     border-left-color: var(--#{$prefix}info);
   }
 
-  //&.modal-border-left-warning {
-  //  border-left-color: var(--#{$prefix}warning);
-  //}
-
-  //.modal-header__icon {
-  //  width: 1rem;
-  //  margin-right: 2rem;
-  //}
+ .modal-title {
+   margin-left: 1rem;
+ }
 
   .modal-body,
   .modal-footer {
-    margin-left: 3rem;
-    margin-right: 3rem;
+    margin-left: calc(1rem + 28px); // 28px type-icon
   }
 }
 

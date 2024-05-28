@@ -14,7 +14,9 @@
         "cf": "Codice fiscale",
         "viewPdf": "Visualizza referto",
         "error": {
-          "fiscalCodeNotValid": "Codice fiscale non valido."
+          "title": "Errore",
+          "fiscalCodeNotValid": "Codice fiscale non valido.",
+          "reportNotFound": "Nessun referto trovato, verificare i dati inseriti"
         }
       }
     },
@@ -30,6 +32,10 @@
       "documents": "Documenti",
       "view": "Visualizza",
       "viewing": "Stai visualizzando"
+    },
+    "error": {
+      "title": "Errore referto",
+      "pdf": "Impossibile recuperare il referto, riprovare."
     }
   },
   "footer": {

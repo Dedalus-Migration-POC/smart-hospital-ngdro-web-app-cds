@@ -4,8 +4,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 import {
-  mockFindReportDocumentsFrame,
-  mockRetrievePdfDocument
+  mockFindReportDocumentFrame, mockFindReportDocumentPdf,
+  mockFindReportDocumentMultiPdf, mockRetrievePdfDocument
 } from './mock-response';
 import { ReportDocument } from '../../models/report';
 
@@ -26,7 +26,7 @@ export class MockHttpInterceptor implements HttpInterceptor {
 
       const mockResponse = new HttpResponse<{ documents: Array<ReportDocument> }>({
         status: 200,
-        body: mockFindReportDocumentsFrame
+        body: mockFindReportDocumentMultiPdf
       });
 
       return of(mockResponse).pipe(delay(2000));

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import printJS from 'print-js';
 
@@ -15,7 +14,7 @@ export class PdfViewerComponent implements OnInit {
 
   pdfSrc: string = '';
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor() { }
 
   printPDF(): void {
     printJS({ printable: this.pdfBase64, type: 'pdf', base64: true });
@@ -28,6 +27,7 @@ export class PdfViewerComponent implements OnInit {
       link.download = (this.fileName) ? this.fileName + '.pdf' : 'report.pdf';
       document.body.appendChild(link);
       link.click();
+
       document.body.removeChild(link);
     }
   }

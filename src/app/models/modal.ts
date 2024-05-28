@@ -8,6 +8,7 @@ export enum Type {
 export interface Modal {
   type: Type,
   title: string,
-  contentBody: string,
-  contentFooter: string
+  body?: string,
+  footer?: string,
+  centered: boolean
 }

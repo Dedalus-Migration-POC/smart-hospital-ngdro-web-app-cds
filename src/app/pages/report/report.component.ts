@@ -53,9 +53,13 @@ export class ReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportDocument = this.sessionService.getData('report');
-    this.releaseDateObj = this.getFormatData(this.reportDocument?.releaseDate!);
 
-    this.initCurrentView();
+    if (!this.reportDocument) {
+      this.router.navigate(['/']);
+    } else {
+      this.releaseDateObj = this.getFormatData(this.reportDocument?.releaseDate!);
+      this.initCurrentView();
+    }
   }
 
   getValues(obj: Record<string, string>): string[] {

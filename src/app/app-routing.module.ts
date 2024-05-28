@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './pages/home/home.component';
 import { ReportComponent } from './pages/report/report.component';
-import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
@@ -21,6 +20,11 @@ const routes: Routes = [
       import('./mobile/mobile-routing.module').then(
         (m) => m.MobileRoutingModule
       ),
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
   },
 ];
 

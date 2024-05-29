@@ -332,16 +332,13 @@
       </span>
       <span
         class="field-error"
+        [innerHTML]="'mobile.commons.password-criteria' | translate"
         *ngIf="
           signUpForm.controls.password.touched &&
           signUpForm.controls.password.hasError('invalidPassword') &&
           !isRequired('password')
         "
       >
-        La password può contenere da 8 a 20 caratteri con almeno una lettera
-        maiuscola ed un carattere speciale
-        <br />
-        <span>{{ "( ! @ # $ % ^ & * )" }}</span>
       </span>
     </div>
 

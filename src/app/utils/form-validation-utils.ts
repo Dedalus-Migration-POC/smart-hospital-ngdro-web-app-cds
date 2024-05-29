@@ -52,6 +52,23 @@ export const FormValidationUtils = {
     };
   },
 
-  minKeysValidator:(min: number) => (control: AbstractControl): ValidationErrors | null =>
-    Object.values(control.value).length < min ? { invalidMinKeys: true } : null,
+  minKeysValidator:
+    (min: number) =>
+    (control: AbstractControl): ValidationErrors | null =>
+      Object.values(control.value).length < min
+        ? { invalidMinKeys: true }
+        : null,
 };
+
+export class PasswordValidator {
+  static matchValidator(source: string, target: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const sourceCtrl = control.get(source);
+      const targetCtrl = control.get(target);
+
+      return sourceCtrl && targetCtrl && sourceCtrl.value !== targetCtrl.value
+        ? { passwordMismatch: true }
+        : null;
+    };
+  }
+}

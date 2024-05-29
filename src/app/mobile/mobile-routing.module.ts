@@ -6,6 +6,8 @@ import { MobileLayoutComponent } from './mobile-layout/mobile-layout.component';
 import { SignupComponent } from './signup/signup.component';
 import { SignupSuccessComponent } from './signup/signup-success/signup-success.component';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { PasswordResetSuccessComponent } from './password-reset/success/success.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 export const routes: Routes = [
   {
@@ -29,6 +31,11 @@ export const routes: Routes = [
         component: SignupSuccessComponent,
       },
       { path: 'password-recovery', component: PasswordRecoveryComponent },
+      { path: 'reset-password/:key', component: PasswordResetComponent },
+      {
+        path: 'reset-password/:key/success',
+        component: PasswordResetSuccessComponent,
+      },
     ],
   },
 ];

@@ -84,6 +84,15 @@
       "field-label": "Codice fiscale",
       "field-error": "Il codice fiscale non è valido, riprova.",
       "success-message": "Abbiamo inviato le istruzioni per la modifica della password al tuo indirizzo email."
+    },
+    "password-reset": {
+      "password1": "Nuova password",
+      "password2": "Conferma password",
+      "not-match-error": "Le password non coincidono",
+      "reset-error": "Non è stato possibile ripristinare la password. Se il problema persiste riprova più tardi."
+    },
+    "commons": {
+      "password-criteria": "<span>La password può contenere da 8 a 20 caratteri con almeno una lettera maiuscola ed un carattere speciale<br /><span>( ! @ # $ % ^ & * )</span></span>"
     }
   }
 }

@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   standalone: true,
   imports: [CommonModule, FontAwesomeModule],
   template: ` <button
+    [type]="type"
     [disabled]="loading || disabled"
     [ngClass]="outlined ? 'outlined' : undefined"
     [ngStyle]="{ opacity: disabled ? 0.5 : undefined }"

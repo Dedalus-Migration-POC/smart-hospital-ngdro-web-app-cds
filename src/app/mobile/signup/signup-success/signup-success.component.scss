@@ -1,0 +1,29 @@
+span {
+  align-self: center;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+span.title {
+  font-size: 28px;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+img.icon_popup_success {
+  width: 125px;
+}
+
+button {
+  border-radius: 20px;
+  height: 50px;
+  padding: 5px 30px;
+  background-color: #22c6b1;
+  border: none;
+  width: 100%;
+  color: #262626;
+  font-family: Titillium Web;
+  font-weight: 600;
+  font-size: 14px;
+}

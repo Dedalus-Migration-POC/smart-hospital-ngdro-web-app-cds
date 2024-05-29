@@ -379,7 +379,6 @@
   <div class="registering" *ngIf="registering">Attendere...</div>
 
   <button
-    mat-button
     [disabled]="!canContinue() || registering"
     [ngStyle]="{ opacity: !canContinue() || registering ? 0.5 : undefined }"
     type="submit"
@@ -387,12 +386,7 @@
     {{ confirmButtonLabel | translate | toUpperCase }}
   </button>
   <div style="height: 15px"></div>
-  <button
-    mat-raised-button
-    type="button"
-    [disabled]="registering"
-    (click)="onCancel()"
-  >
+  <button type="button" [disabled]="registering" (click)="onCancel()">
     {{ "cancel" | translate | uppercase }}
   </button>
   <div style="height: 30px"></div>

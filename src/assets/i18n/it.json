@@ -58,16 +58,20 @@
     "load": "Caricamento in corso.."
   },
   "mobile": {
-    "signup-buttons": {
-      "auth": "Accesso",
-      "signup": "Registrazione"
-    },
     "login": {
       "fiscalCode": "Codice fiscale",
       "invalidFiscalCode": "Il codice fiscale inserito non sembra valido",
       "password": "Password",
       "invalidPassword": "La password non è valida",
       "passwordForgotten": "Password dimenticata?"
+    },
+    "signup-buttons": {
+      "auth": "Accesso",
+      "signup": "Registrazione"
+    },
+    "signup-success": {
+      "title": "Registrazione avvenuta con successo",
+      "text": "Esegui l'accesso con le tue nuove credenziali"
     }
   }
 }

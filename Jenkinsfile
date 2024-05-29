@@ -1,1 +1,1 @@
-buildAngular(['cds'], 'cds', null, null, null, null, { skipOutputPath: true })
+buildAngular(['cds'], 'cds', null, null, null, null, [skipOutputPath: true ])

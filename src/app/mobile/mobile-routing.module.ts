@@ -5,6 +5,7 @@ import { OtpComponent } from './otp/otp.component';
 import { MobileLayoutComponent } from './mobile-layout/mobile-layout.component';
 import { SignupComponent } from './signup/signup.component';
 import { SignupSuccessComponent } from './signup/signup-success/signup-success.component';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,7 @@ export const routes: Routes = [
         path: 'signup/success',
         component: SignupSuccessComponent,
       },
+      { path: 'password-recovery', component: PasswordRecoveryComponent },
     ],
   },
 ];

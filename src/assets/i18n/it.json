@@ -7,6 +7,7 @@
   "authButton": "Accesso",
   "access": "Accesso",
   "send": "Invia",
+  "back": "Indietro",
   "refresh": "Aggiorna",
   "goAccess": "Accedi",
   "accessTitle": "Accedi con le tue credenziali",
@@ -78,6 +79,11 @@
     "signup-success": {
       "title": "Registrazione avvenuta con successo",
       "text": "Esegui l'accesso con le tue nuove credenziali"
+    },
+    "password-recovery": {
+      "field-label": "Codice fiscale",
+      "field-error": "Il codice fiscale non è valido, riprova.",
+      "success-message": "Abbiamo inviato le istruzioni per la modifica della password al tuo indirizzo email."
     }
   }
 }

@@ -9,7 +9,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class FrameComponent implements OnInit {
   @Input() urls: string[] = [];
 
-  public sanitizedUrls: SafeResourceUrl[] = [];
+  sanitizedUrls: SafeResourceUrl[] = [];
 
   constructor(private sanitizer: DomSanitizer) {}
 

@@ -12,7 +12,7 @@ export type PdfRequest = {
 
 export type DocumentMimeType =
   | 'application/pdf'
-  | 'application/dicon'
+  | 'application/dicom'
 
 export type ReportDocument = {
   documentId: string;

@@ -8,14 +8,19 @@
   <div class="row mb-4">
     <div class="col-12">
       <ul class="list-group list-group-horizontal gap-3 border-none flex-wrap">
-        <li class="list-group-item" *ngFor="let pdf of list">
+        <li class="list-group-item" *ngFor="let pdf of list;let i = index" [ngClass]="{ 'border border-primary': selectedPdf === pdf}">
           <div class="d-flex flex-row align-items-center justify-content-center">
             <img src="assets/images/file-pdf-primary.svg" height="36" width="36" alt="file pdf" />
             <div class="d-flex flex-column">
               <label class="fs-lg">{{ pdf.name + '.pdf' }}</label>
-              <a href="javascript:void(0)" class="text-decoration-none fs-sm fw-semibold lh-sm" (click)="viewPdf(pdf)">
+              <a *ngIf="selectedPdf !== pdf" href="javascript:void(0)" class="text-decoration-none fs-sm fw-semibold lh-sm"
+                 (click)="selectPdf(pdf)">
                 {{ 'report.list-pdf.view' | translate }}
               </a>
+
+              <label *ngIf="selectedPdf === pdf" class="lh-sm list-pdf__viewing fs-sm fw-semibold">
+                {{'report.list-pdf.viewing' | translate }}
+              </label>
             </div>
           </div>
         </li>

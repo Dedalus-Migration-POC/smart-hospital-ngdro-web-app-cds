@@ -4,7 +4,7 @@ html, body {
   height: 100%;
 }
 
-app-root {
+app-layout {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -59,6 +59,12 @@ app-report {
   .accordion-body {
       color: var(--#{$prefix}body-color, #1a1a1a);
   }
+}
+
+// Typography
+
+h1, h2, h3, h4, h5, h6 {
+  cursor: default;
 }
 
 /****** NEW CLASSES *****/

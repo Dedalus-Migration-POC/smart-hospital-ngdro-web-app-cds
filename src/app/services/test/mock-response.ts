@@ -1,12 +1,12 @@
 import { PdfDocument, ReportDocument } from '../../models/report';
 
-export const mockFindReportDocumentsFrame: { documents: Array<ReportDocument> } = {
+export const mockFindReportDocumentFrame: { documents: Array<ReportDocument> } = {
   "documents": [
     {
       "documentId": "1234567",
       "repositoryId": "42424234242",
       "name": "Analisi cliniche",
-      "mimeType": "application/dicon",
+      "mimeType": "application/dicom",
       "releaseDate": "2022-05-05T13:00:00Z",
       "additionalInfo": {
         "urlViewer-1": "http://www.google.it",
@@ -33,7 +33,7 @@ export const mockFindReportDocumentsFrame: { documents: Array<ReportDocument> } 
 };
 
 
-export const mockFindReportDocumentsPdf: { documents: Array<ReportDocument> } = {
+export const mockFindReportDocumentPdf: { documents: Array<ReportDocument> } = {
   "documents": [{
     "documentId": "1234567",
     "repositoryId": "42424234242",
@@ -41,6 +41,32 @@ export const mockFindReportDocumentsPdf: { documents: Array<ReportDocument> } = 
     "mimeType": "application/pdf",
     "releaseDate": "2022-05-05T13:00:00Z"
   }]
+}
+
+export const mockFindReportDocumentMultiPdf: { documents: Array<ReportDocument> } = {
+  "documents": [
+  {
+    "documentId": "1234567",
+    "repositoryId": "42424234242",
+    "name": "Analisi cliniche 1",
+    "mimeType": "application/pdf",
+    "releaseDate": "2022-05-05T13:00:00Z",
+    "relatedDocuments": [
+      {
+        "documentId": "1234567",
+        "name": "Analisi cliniche2",
+        "mimeType": "application/pdf",
+        "releaseDate": "2022-05-05T13:00:00Z"
+      },
+      {
+        "documentId": "1234567",
+        "name": "Analisi cliniche3",
+        "mimeType": "application/pdf",
+        "releaseDate": "2022-05-05T13:00:00Z"
+      }
+    ]
+  }
+]
 }
 
 export const mockRetrievePdfDocument: PdfDocument = {

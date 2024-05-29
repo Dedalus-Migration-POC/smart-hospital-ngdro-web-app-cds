@@ -31,17 +31,13 @@
     </ng-template>
   </div>
 
-  <div
-    *ngIf="loading; else resend"
-    style="display: flex; justify-content: center"
-  >
-    Attendere...
-  </div>
-  <button
+  <div *ngIf="loading; else resend"></div>
+  <app-mobile-button
+    class="w-100 mt-5"
     [disabled]="loading || !canSubmit"
-    [style]="{ opacity: loading || !canSubmit ? '0.5' : '', marginTop: '20px' }"
+    [loading]="loading"
     type="submit"
   >
     {{ "Accedi" | toUpperCase }}
-  </button>
+  </app-mobile-button>
 </form>

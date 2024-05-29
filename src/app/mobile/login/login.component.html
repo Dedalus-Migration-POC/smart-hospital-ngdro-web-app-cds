@@ -51,14 +51,12 @@
   </div>
 
   <div class="out-of-form">
-    <button
-      class="mt-5"
-      [disabled]="!loginForm.valid"
-      [style]="loginForm.valid ? '' : 'opacity: 0.5'"
+    <app-mobile-button
       type="submit"
+      class="mt-5 w-100"
+      [disabled]="!loginForm.valid"
+      >{{ "confirm" | translate | toUpperCase }}</app-mobile-button
     >
-      {{ "confirm" | translate | toUpperCase }}
-    </button>
     <a routerLink="password-recovery" class="mt-5">{{
       "mobile.login.passwordForgotten" | translate
     }}</a>

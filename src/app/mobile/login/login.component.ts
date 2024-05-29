@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { PipesModule } from '../../pipes.module';
+import { MobileButtonComponent } from '../components/mobile-button/mobile-button.component';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ import { PipesModule } from '../../pipes.module';
     TranslateModule,
     CommonModule,
     PipesModule,
+    MobileButtonComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

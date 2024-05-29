@@ -7,11 +7,18 @@ import { ITfaLoginResponse } from '@ngdro/ngx-uaa-services';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PipesModule } from '../../pipes.module';
+import { MobileButtonComponent } from '../components/mobile-button/mobile-button.component';
 
 @Component({
   selector: 'app-otp',
   standalone: true,
-  imports: [CommonModule, PipesModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    PipesModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MobileButtonComponent,
+  ],
   templateUrl: './otp.component.html',
   styleUrl: './otp.component.scss',
 })

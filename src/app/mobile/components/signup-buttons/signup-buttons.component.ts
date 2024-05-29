@@ -7,6 +7,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { PipesModule } from '../../../pipes.module';
 import { CommonModule } from '@angular/common';
+import { MobileButtonComponent } from '../mobile-button/mobile-button.component';
 
 @Component({
   selector: 'app-signup-buttons',
@@ -17,6 +18,7 @@ import { CommonModule } from '@angular/common';
     RouterLink,
     TranslateModule,
     PipesModule,
+    MobileButtonComponent,
   ],
   templateUrl: './signup-buttons.component.html',
   styleUrl: './signup-buttons.component.scss',

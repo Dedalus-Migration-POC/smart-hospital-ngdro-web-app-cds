@@ -378,16 +378,22 @@
 
   <div class="registering" *ngIf="registering">Attendere...</div>
 
-  <button
+  <app-mobile-button
+    class="w-100"
     [disabled]="!canContinue() || registering"
-    [ngStyle]="{ opacity: !canContinue() || registering ? 0.5 : undefined }"
     type="submit"
   >
     {{ confirmButtonLabel | translate | toUpperCase }}
-  </button>
+  </app-mobile-button>
   <div style="height: 15px"></div>
-  <button type="button" [disabled]="registering" (click)="onCancel()">
+  <app-mobile-button
+    class="w-100"
+    type="button"
+    [outlined]="true"
+    [disabled]="registering"
+    (click)="onCancel()"
+  >
     {{ "cancel" | translate | uppercase }}
-  </button>
+  </app-mobile-button>
   <div style="height: 30px"></div>
 </form>

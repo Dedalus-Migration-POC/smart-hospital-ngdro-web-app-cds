@@ -13,6 +13,7 @@ import { tap } from 'rxjs';
 import { City } from '../../../types/cities';
 import { TimelineComponent } from '../components/timeline/timeline.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MobileButtonComponent } from '../components/mobile-button/mobile-button.component';
 
 @Component({
   selector: 'app-signup',
@@ -25,6 +26,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
+    MobileButtonComponent,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',

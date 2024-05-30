@@ -10,8 +10,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   styleUrls: ['./timeline.component.css'],
 })
 export class TimelineComponent {
-  @Input() step!: number;
-  @Input() steps!: Array<number>;
-  @Input() stepsCompleted!: Array<number>;
-  @Input() onPrevStep!: Function;
+  @Input({ required: true, alias: 'step' }) step!: number;
+  @Input({ required: true, alias: 'steps' }) steps!: Array<number>;
+  @Input({ required: true, alias: 'stepsCompleted' })
+  stepsCompleted!: Array<number>;
+  @Input({ required: true, alias: 'onPrevStep' }) onPrevStep!: VoidFunction;
 }

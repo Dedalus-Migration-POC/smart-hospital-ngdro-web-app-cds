@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS  } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpClient,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -13,16 +17,15 @@ import { PagesModule } from './pages/pages.module';
 
 //TODO test interceptor
 import { MockHttpInterceptor } from './services/test/mock-http.interceptor';
-import { ErrorInterceptor } from "./services/test/error-http.interceptor";
+import { ErrorInterceptor } from './services/test/error-http.interceptor';
+import { deployUrl } from '../main';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, `${deployUrl}assets/i18n/`, '.json');
 }
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -30,19 +33,19 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
 
     AppRoutingModule,
     LayoutModule,
-    PagesModule
+    PagesModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: MockHttpInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {

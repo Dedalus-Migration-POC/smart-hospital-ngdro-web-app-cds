@@ -31,7 +31,7 @@ export class AddressAutocompleteService {
 
   private initCities() {
     this.httpClient
-      .get<CitiesResponse>('/enumeration/api/enumeration/mondino/caps', {
+      .get<CitiesResponse>('/enumeration/api/enumeration/cds/caps', {
         headers: { 'Accept-Language': 'it' },
       })
       .pipe(
@@ -51,7 +51,7 @@ export class AddressAutocompleteService {
 
   private initNations() {
     this.httpClient
-      .get<NationsResponse>('/enumeration/api/enumeration/mondino/nations', {
+      .get<NationsResponse>('/enumeration/api/enumeration/cds/nations', {
         headers: { 'Accept-Language': 'it' },
       })
       .pipe(
@@ -102,10 +102,9 @@ export class AddressAutocompleteService {
 
   onCitySelection(city: City, callback: (zipCodes: Array<string>) => void) {
     this.httpClient
-      .get<ZipsResponse>(
-        '/enumeration/api/enumeration/mondino/' + city.childName,
-        { headers: { 'Accept-Language': 'it' } }
-      )
+      .get<ZipsResponse>('/enumeration/api/enumeration/cds/' + city.childName, {
+        headers: { 'Accept-Language': 'it' },
+      })
       .subscribe((response) => {
         const list = response.items.map((item) => item.label);
         this.zipCodes$.next(list);

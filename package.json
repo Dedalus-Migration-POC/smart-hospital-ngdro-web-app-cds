@@ -7,8 +7,8 @@
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.js",
     "build": "ng build",
-    "build:stg": "export DEPLOYURL=https://cdn.smarthospital.cloud/cds/staging/v1/ && ng build --output-path=dist --deploy-url=\"$DEPLOYURL\" --base-href=/ui && node post-build.js \"$DEPLOYURL\"",
-    "build:int": "export DEPLOYURL=https://cdn.smarthospital.cloud/cds/integration/v1/ && ng build --output-path=dist --deploy-url=\"$DEPLOYURL\" --base-href=/ui && node post-build.js \"$DEPLOYURL\"",
+    "build:stg": "export DEPLOYURL=https://cdn.smarthospital.cloud/cds/staging/v1/ && ng build --deploy-url=\"$DEPLOYURL\" --base-href=/ui && node post-build.js \"$DEPLOYURL\"",
+    "build:int": "export DEPLOYURL=https://cdn.smarthospital.cloud/cds/integration/v1/ && ng build --deploy-url=\"$DEPLOYURL\" --base-href=/ui && node post-build.js \"$DEPLOYURL\"",
     "ideps": "npm i --legacy-peer-deps",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

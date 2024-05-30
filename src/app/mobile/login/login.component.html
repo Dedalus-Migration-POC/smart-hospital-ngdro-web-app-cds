@@ -18,6 +18,7 @@
       toUppercase
     />
     <span
+      class="field-error"
       *ngIf="
         loginForm.controls.fiscalCode.touched &&
         loginForm.controls.fiscalCode.hasError('invalidFiscalCode')
@@ -32,7 +33,6 @@
       "mobile.login.password" | translate
     }}</label>
     <input
-      matInput
       class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
       id="password"
       (focusin)="onPasswordFocus()"
@@ -40,8 +40,11 @@
       [type]="hide ? 'password' : 'text'"
       autocomplete="current-password"
     />
-    <span *ngIf="error">{{ "mobile.login.invalidPassword" | translate }}</span>
+    <span class="field-error" *ngIf="error">{{
+      "mobile.login.invalidPassword" | translate
+    }}</span>
     <span
+      class="field-error"
       *ngIf="
         loginForm.controls.password.touched &&
         loginForm.controls.password.hasError('required')

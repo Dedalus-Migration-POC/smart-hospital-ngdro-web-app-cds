@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { PipesModule } from '../../pipes.module';
 import { MobileButtonComponent } from '../components/mobile-button/mobile-button.component';
+import { DirectivesModule } from '../../directives.module';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ import { MobileButtonComponent } from '../components/mobile-button/mobile-button
     TranslateModule,
     CommonModule,
     PipesModule,
+    DirectivesModule,
     MobileButtonComponent,
   ],
   templateUrl: './login.component.html',

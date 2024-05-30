@@ -14,6 +14,7 @@ import { City } from '../../../types/cities';
 import { TimelineComponent } from '../components/timeline/timeline.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MobileButtonComponent } from '../components/mobile-button/mobile-button.component';
+import { DirectivesModule } from '../../directives.module';
 
 @Component({
   selector: 'app-signup',
@@ -23,6 +24,7 @@ import { MobileButtonComponent } from '../components/mobile-button/mobile-button
     SignupButtonsComponent,
     CommonModule,
     PipesModule,
+    DirectivesModule,
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,

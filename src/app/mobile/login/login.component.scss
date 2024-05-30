@@ -41,12 +41,10 @@ form {
   font-weight: bold;
 }
 
-.out-of-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100% !important;
+.field-error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
 button {

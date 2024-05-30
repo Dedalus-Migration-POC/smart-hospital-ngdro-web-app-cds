@@ -8,6 +8,7 @@ import { SignupSuccessComponent } from './signup/signup-success/signup-success.c
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { PasswordResetSuccessComponent } from './password-reset/success/success.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,10 @@ export const routes: Routes = [
       {
         path: 'login/otp',
         component: OtpComponent,
+      },
+      {
+        path: 'user-profile',
+        component: UserProfileComponent,
       },
       {
         path: 'signup',

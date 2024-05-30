@@ -1,0 +1,370 @@
+<div class="d-flex flex-column align-items-center" *ngIf="!error; else ready">
+  <app-image alt="warning" src="icon_popup_warning.svg" />
+  <span class="text-center mt-3 font-weight-bold"
+    >Impossibile recuperare i dati del profilo.<br />Se il problema persiste
+    riprovare più tardi.</span
+  >
+  <app-mobile-button
+    class="mt-5"
+    type="button"
+    [disabled]="updating"
+    (click)="onCancel()"
+  >
+    {{ "close" | translate | uppercase }}
+  </app-mobile-button>
+</div>
+
+<ng-template #ready>
+  <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="userProfileForm.firstName">Nome</label>
+
+      <input
+        id="userProfileForm.firstName"
+        [readonly]="patient?.userVerified === true"
+        formControlName="firstName"
+      />
+
+      <span
+        class="field-error"
+        *ngIf="userProfileForm.controls.firstName.hasError('required')"
+      >
+        Questo campo è obbligatorio
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="userProfileForm.lastName">Cognome</label>
+
+      <input
+        id="userProfileForm.lastName"
+        [readonly]="patient?.userVerified === true"
+        formControlName="lastName"
+      />
+
+      <span
+        class="field-error"
+        *ngIf="userProfileForm.controls.lastName.hasError('required')"
+      >
+        Questo campo è obbligatorio
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="userProfileForm.taxCode">Codice Fiscale</label>
+
+      <input
+        id="userProfileForm.taxCode"
+        [readonly]="true"
+        formControlName="taxCode"
+        toUppercase
+      />
+
+      <span
+        class="field-error"
+        *ngIf="userProfileForm.controls.taxCode.hasError('required')"
+      >
+        Questo campo è obbligatorio
+      </span>
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.taxCode.hasError('invalidFiscalCode') &&
+          !userProfileForm.controls.taxCode.hasError('required')
+        "
+      >
+        Il codice fiscale inserito non sembra valido
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="userProfileForm.email">Email</label>
+
+      <input
+        id="userProfileForm.email"
+        formControlName="email"
+        autocomplete="email"
+      />
+
+      <span
+        class="field-error"
+        *ngIf="userProfileForm.controls.email.hasError('email')"
+      >
+        L'indirizzo inserito non sembra valido
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="userProfileForm.phoneNumber">Cellulare</label>
+
+      <input
+        id="userProfileForm.phoneNumber"
+        formControlName="phoneNumber"
+        autocomplete="tel"
+        maxlength="14"
+      />
+
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.phoneNumber.touched &&
+          userProfileForm.controls.phoneNumber.hasError('required')
+        "
+      >
+        Questo campo è obbligatorio
+      </span>
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.phoneNumber.touched &&
+          userProfileForm.controls.phoneNumber.hasError('notItalianPhone') &&
+          !userProfileForm.controls.phoneNumber.hasError('required')
+        "
+      >
+        Non sono consentiti numeri non italiani
+      </span>
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.phoneNumber.touched &&
+          userProfileForm.controls.phoneNumber.hasError('invalidPhone') &&
+          !userProfileForm.controls.phoneNumber.hasError('required') &&
+          !userProfileForm.controls.phoneNumber.hasError('notItalianPhone')
+        "
+      >
+        Il numero inserito non sembra corretto
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="userProfileForm.street">Indirizzo</label>
+
+      <input
+        id="userProfileForm.street"
+        formControlName="street"
+        autocomplete="family-name"
+      />
+
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.street.touched &&
+          userProfileForm.controls.street.hasError('required')
+        "
+      >
+        Questo campo è obbligatorio
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="userProfileForm.number">Numero civico</label>
+
+      <input
+        id="userProfileForm.number"
+        formControlName="number"
+        autocomplete="family-name"
+      />
+
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.number.touched &&
+          userProfileForm.controls.number.hasError('required')
+        "
+      >
+        Questo campo è obbligatorio
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="userProfileForm.municipalityName">Città</label>
+      <div class="autocomplete-container">
+        <input
+          id="userProfileForm.municipalityName"
+          formControlName="municipalityName"
+          type="text"
+          class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+          (focus)="showCities = true"
+          (blur)="onCityFieldBlur($event)"
+          (input)="filterCities($event)"
+        />
+        <ng-container
+          *ngIf="
+            showCities && (autocompleteService.filteredCities$ | async)?.length
+          "
+        >
+          <ul *ngIf="autocompleteService.filteredCities$ | async as cities">
+            <li *ngFor="let city of cities" (mousedown)="onCitySelection(city)">
+              {{ city.label }}
+            </li>
+          </ul></ng-container
+        >
+      </div>
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.municipalityName.touched &&
+          userProfileForm.controls.municipalityName.hasError('required')
+        "
+      >
+        Questo campo è obbligatorio
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="userProfileForm.zipCode">CAP</label>
+      <div class="autocomplete-container">
+        <input
+          id="userProfileForm.zipCode"
+          formControlName="zipCode"
+          type="text"
+          maxlength="5"
+          class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+          (blur)="onZipFieldBlur($event)"
+        />
+        <ng-container
+          *ngIf="
+            showZipCodes && (autocompleteService.zipCodes$ | async)?.length
+          "
+        >
+          <ul *ngIf="autocompleteService.zipCodes$ | async as zipCodes">
+            <li *ngFor="let zip of zipCodes" (mousedown)="onZipSelection(zip)">
+              {{ zip }}
+            </li>
+          </ul></ng-container
+        >
+      </div>
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.zipCode.touched &&
+          userProfileForm.controls.zipCode.hasError('required')
+        "
+      >
+        Questo campo è obbligatorio
+      </span>
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.zipCode.hasError('minlength') &&
+          !userProfileForm.controls.zipCode.hasError('required')
+        "
+      >
+        Il CAP è composto da 5 cifre
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="signup.nationality">Nazionalità</label>
+      <div class="autocomplete-container">
+        <input
+          id="signup.nationality"
+          formControlName="nationality"
+          type="text"
+          class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+          (focus)="showNations = true"
+          (input)="filterNations($event, 'nationality')"
+          (blur)="showNations = false; onNationFieldBlur($event, 'nationality')"
+        />
+        <ng-container
+          *ngIf="
+            showNations &&
+            (autocompleteService.filteredNations$ | async)?.length
+          "
+        >
+          <ul *ngIf="autocompleteService.filteredNations$ | async as nations">
+            <li
+              *ngFor="let nation of nations"
+              (mousedown)="
+                showNations = false; onNationSelection(nation, 'nationality')
+              "
+            >
+              {{ nation.label }}
+            </li>
+          </ul></ng-container
+        >
+      </div>
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.nationality.touched &&
+          userProfileForm.controls.nationality.hasError('required')
+        "
+      >
+        Questo campo è obbligatorio
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="signup.citizenship">Cittadinanza</label>
+      <div class="autocomplete-container">
+        <input
+          id="signup.citizenship"
+          formControlName="citizenship"
+          type="text"
+          class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+          (focus)="showCitizenship = true"
+          (input)="filterNations($event, 'citizenship')"
+          (blur)="
+            showCitizenship = false; onNationFieldBlur($event, 'citizenship')
+          "
+        />
+        <ng-container
+          *ngIf="
+            showCitizenship &&
+            (autocompleteService.filteredNations$ | async)?.length
+          "
+        >
+          <ul *ngIf="autocompleteService.filteredNations$ | async as nations">
+            <li
+              *ngFor="let nation of nations"
+              (mousedown)="
+                showCitizenship = false;
+                onNationSelection(nation, 'citizenship')
+              "
+            >
+              {{ nation.label }}
+            </li>
+          </ul></ng-container
+        >
+      </div>
+      <span
+        class="field-error"
+        *ngIf="
+          userProfileForm.controls.citizenship.touched &&
+          userProfileForm.controls.citizenship.hasError('required')
+        "
+      >
+        Questo campo è obbligatorio
+      </span>
+    </div>
+
+    <div class="signup-error" *ngIf="updateError">
+      E' avvenuto un errore. Se il problema presiste riprovare più tardi.
+    </div>
+
+    <div class="registering" *ngIf="updating">Attendere...</div>
+
+    <app-mobile-button
+      class="w-100"
+      [disabled]="!userProfileForm.valid || updating"
+      [ngStyle]="{
+        opacity: !userProfileForm.valid || updating ? 0.5 : undefined
+      }"
+      type="submit"
+    >
+      {{ (updateError ? "retry" : "confirm") | translate | toUpperCase }}
+    </app-mobile-button>
+    <div style="height: 15px"></div>
+    <app-mobile-button
+      class="w-100"
+      type="button"
+      [outlined]="true"
+      [disabled]="updating"
+      (click)="onCancel()"
+    >
+      {{ "cancel" | translate | toUpperCase }}
+    </app-mobile-button>
+    <div style="height: 30px"></div>
+  </form>
+</ng-template>

@@ -373,10 +373,9 @@
     E' avvenuto un errore. Se il problema presiste riprovare più tardi.
   </div>
 
-  <div class="registering" *ngIf="registering">Attendere...</div>
-
   <app-mobile-button
     class="w-100"
+    [loading]="registering"
     [disabled]="!canContinue() || registering"
     type="submit"
   >

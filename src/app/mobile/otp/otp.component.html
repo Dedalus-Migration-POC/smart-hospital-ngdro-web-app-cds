@@ -1,1 +1,43 @@
-<p>otp works!</p>
+<form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+  <div class="otp-content">
+    <label for="otp">Codice di verifica</label>
+    <input
+      id="otp"
+      formControlName="code"
+      maxLength="5"
+      toUppercase
+      pattern="\d*"
+    />
+  </div>
+
+  <div class="out-of-form">
+    <ng-template #resend>
+      <div class="otp-resend">
+        <span
+          [style]="{
+            color: errorMessage != null ? '#ff0000' : undefined,
+            marginBottom: errorMessage != null ? '10px' : undefined
+          }"
+          >{{ errorMessage ?? "Non ti è arrivato?" }}</span
+        >
+        <span *ngIf="interval > 0; else newCode"
+          >Potrai richiedere un nuovo codice tra<br />
+          {{ interval }} {{ interval === 1 ? "secondo" : "secondi" }}</span
+        >
+        <ng-template #newCode>
+          <a (click)="otpResend()">Richiedi un nuovo codice</a>
+        </ng-template>
+      </div>
+    </ng-template>
+  </div>
+
+  <div *ngIf="loading; else resend"></div>
+  <app-mobile-button
+    class="w-100 mt-5"
+    [disabled]="loading || !canSubmit"
+    [loading]="loading"
+    type="submit"
+  >
+    {{ "Accedi" | toUpperCase }}
+  </app-mobile-button>
+</form>

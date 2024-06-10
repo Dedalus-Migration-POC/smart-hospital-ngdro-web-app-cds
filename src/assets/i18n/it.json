@@ -1,4 +1,22 @@
 {
+  "yes": "Sì",
+  "no": "No",
+  "close": "Chiudi",
+  "understood": "Ho capito",
+  "warning": "Attenzione",
+  "authButton": "Accesso",
+  "access": "Accesso",
+  "send": "Invia",
+  "back": "Indietro",
+  "refresh": "Aggiorna",
+  "goAccess": "Accedi",
+  "accessTitle": "Accedi con le tue credenziali",
+  "signUpButton": "Registrazione",
+  "signUp": "Registrati",
+  "confirm": "Conferma",
+  "continue": "Prosegui",
+  "cancel": "Annulla",
+  "confirm-and-continue": "Conferma e prosegui",
   "header": {
     "modules": "Modulistica",
     "contacts": "Contatti"
@@ -45,5 +63,36 @@
   },
   "spinner": {
     "load": "Caricamento in corso.."
+  },
+  "mobile": {
+    "login": {
+      "fiscalCode": "Codice fiscale",
+      "invalidFiscalCode": "Il codice fiscale inserito non sembra valido",
+      "password": "Password",
+      "invalidPassword": "La password non è valida",
+      "passwordForgotten": "Password dimenticata?"
+    },
+    "signup-buttons": {
+      "auth": "Accesso",
+      "signup": "Registrazione"
+    },
+    "signup-success": {
+      "title": "Registrazione avvenuta con successo",
+      "text": "Esegui l'accesso con le tue nuove credenziali"
+    },
+    "password-recovery": {
+      "field-label": "Codice fiscale",
+      "field-error": "Il codice fiscale non è valido, riprova.",
+      "success-message": "Abbiamo inviato le istruzioni per la modifica della password al tuo indirizzo email."
+    },
+    "password-reset": {
+      "password1": "Nuova password",
+      "password2": "Conferma password",
+      "not-match-error": "Le password non coincidono",
+      "reset-error": "Non è stato possibile ripristinare la password. Se il problema persiste riprova più tardi."
+    },
+    "commons": {
+      "password-criteria": "<span>La password può contenere da 8 a 20 caratteri con almeno una lettera maiuscola ed un carattere speciale<br /><span>( ! @ # $ % ^ & * )</span></span>"
+    }
   }
 }

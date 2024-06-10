@@ -1,0 +1,52 @@
+.form-group {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 10px;
+    color: #262626;
+    font-weight: bold;
+  }
+
+  input {
+    border: 1px solid #22c6b1 !important;
+    border-radius: 15px !important;
+    padding: 15px 20px !important;
+    font-family: Titillium Web !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+  }
+}
+
+.field-error {
+  color: red;
+  font-size: 14px;
+}
+.autocomplete-container {
+  position: relative;
+}
+
+ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  background-color: white;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #ddd;
+}

@@ -1,4 +1,4 @@
-export enum LanguageLabel {
+export enum Langs {
   it = 'ITA',
   en = 'ENG'
 }

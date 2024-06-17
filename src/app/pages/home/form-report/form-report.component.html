@@ -14,20 +14,16 @@
 
           <div class="form-floating mt-4">
             <input formControlName="patientId" type="text" class="form-control text-uppercase shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
-                   id="floatingCf" maxlength="16" placeholder="{{ 'home.cardReport.form.cf' | translate }}">
+                   id="floatingCf" placeholder="{{ 'home.cardReport.form.cf' | translate }}">
             <label for="floatingCf" class="d-flex align-items-center fw-normal">{{ 'home.cardReport.form.cf' | translate }}</label>
           </div>
-          <small *ngIf="form.get('patientId')?.touched && form.get('patientId')?.errors?.['invalidFiscalCode']"
-               class="text-danger mt-2 d-block">
-            {{ 'home.cardReport.form.error.fiscalCodeNotValid' | translate }}
-          </small>
 
-            <button class="btn btn-primary mt-5 card__btn-view fw-semibold" type="submit" [disabled]="!form.valid">
+          <button class="btn btn-primary mt-5 card__btn-view fw-semibold" type="submit" [disabled]="!form.valid">
               {{ 'home.cardReport.form.viewPdf' | translate }}
-            </button>
+          </button>
         </form>
       </div>
-      <img src="assets/images/card-report.svg" class="card__img-report d-none d-sm-block" alt="card-report">
+      <app-image src="card-report.svg" styleClass="card__img-report d-none d-sm-block" alt="report"></app-image>
     </div>
   </div>
 </div>

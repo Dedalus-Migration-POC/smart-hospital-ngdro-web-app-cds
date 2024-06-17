@@ -4,10 +4,10 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 import {
-  mockFindReportDocumentFrame, mockFindReportDocumentPdf,
-  mockFindReportDocumentMultiPdf, mockRetrievePdfDocument
+  mockFindReportMultiPdf,
+  mockRetrievePdf
 } from './mock-response';
-import { ReportDocument } from '../../models/report';
+import { Report } from '../../models/report';
 
 @Injectable()
 export class MockHttpInterceptor implements HttpInterceptor {
@@ -24,9 +24,9 @@ export class MockHttpInterceptor implements HttpInterceptor {
         return throwError(() => errorResponse).pipe(delay(4000));
       }
 
-      const mockResponse = new HttpResponse<{ documents: Array<ReportDocument> }>({
+      const mockResponse = new HttpResponse<{ documents: Array<Report> }>({
         status: 200,
-        body: mockFindReportDocumentMultiPdf
+        body: mockFindReportMultiPdf
       });
 
       return of(mockResponse).pipe(delay(2000));
@@ -44,7 +44,7 @@ export class MockHttpInterceptor implements HttpInterceptor {
       } else {
         const mockResponse = new HttpResponse({
           status: 200,
-          body: mockRetrievePdfDocument
+          body: mockRetrievePdf
         });
         return of(mockResponse).pipe(delay(2000));
       }

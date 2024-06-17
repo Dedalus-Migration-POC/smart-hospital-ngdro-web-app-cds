@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FaqData } from '../../models/faq';
+import { FaqData } from '../../../models/faq';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({

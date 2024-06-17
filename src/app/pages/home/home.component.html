@@ -1,37 +1,24 @@
 <div class="container home">
   <div class="row mt-5">
     <div class="col-12 col-lg-5">
-      <div
-        class="d-flex flex-column justify-content-start gap-3 px-2 position-relative z-1"
-      >
+      <div class="d-flex flex-column justify-content-start gap-3 px-2 position-relative z-1">
         <h1 class="mb-0">{{ "home.reportService" | translate }}</h1>
         <app-image src="cds-logo.svg" class="home__logo" alt="cds-logo" />
         <h4 class="mb-0 fw-normal lh-base mb-4">
-          <span
-            [innerHTML]="'home.viewDownload' | translate | newlineToBr"
-          ></span>
+          <span [innerHTML]="'home.viewDownload' | translate | newlineToBr"></span>
         </h4>
       </div>
     </div>
     <div class="col-12 col-lg-7">
-      <app-card-report (patientReport)="getReport($event)"></app-card-report>
+      <app-form-report (patient)="getReport($event)"></app-form-report>
     </div>
   </div>
 
-  <app-image
-    src="banner-logo-home.svg"
-    class="mw-100 home__bg ms-n4"
-    alt="banner-logo"
-  />
+  <app-image src="banner-logo-home.svg" class="d-block home__bg ms-n4" alt="banner-logo" styleClass="w-100" />
 </div>
 
 <div class="d-flex">
   <app-faq class="w-100"></app-faq>
 </div>
 
-<app-load-spinner
-  *ngIf="isLoading"
-  [showLabel]="false"
-  [styleClass]="'text-yellow'"
-  [appendToBody]="true"
-></app-load-spinner>
+<app-load-spinner *ngIf="isLoading" [showLabel]="false" styleClass="text-yellow" [appendToBody]="true"></app-load-spinner>

@@ -1,71 +1,78 @@
+export enum MimeTypeEnum {
+  PDF = 'application/pdf',
+  DICOM = 'application/dicom'
+}
+
+export enum Repository {
+  EXTERNAL_DICOM = 'external-dicom',
+  ZEEROMED = 'zeeromed'
+}
+
+// Find documents
+
 export type ReportRequest = {
   patientId: string,
   securityCode: string
 }
 
-export type PdfRequest = {
-  patientId: string,
-  securityCode: string,
+export type Report = {
   documentId: string;
-  repositoryId?: string;
-}
-
-export type DocumentMimeType =
-  | 'application/pdf'
-  | 'application/dicom'
-
-export type ReportDocument = {
-  documentId: string;
-  repositoryId?: string;
+  repositoryId: string;
+  referenceId?: string;
   name: string;
   mimeType: DocumentMimeType;
   releaseDate: string;
-  additionalInfo?: Record<string, string>;
-  relatedDocuments?: ReportDocument[];
+  relatedDocuments?: Report[];
 };
 
-export type PdfDocumentRequest = {
-  patientId: string,
-  repositoryId?: string,
-  securityCode: string
-}
+export type DocumentMimeType =
+  | 'application/pdf'
+  | 'application/dicom';
 
-// TODO: verifica il tipo PdfDocument con BE
-export type PdfDocument = {
-  header: DocumentHeader;
-  body: DocumentBody;
-  attachments: Array<DocumentAttachment>;
-}
+// Retrieve documents
 
-export type DocumentHeader = {
-  author?: DocumentAuthor;
-  confidentiality?: string;
-  creationDate: string;
+export type PdfRequest = {
   documentId: string;
-  languageCode: string;
-  // patient: Person;
-  realmCode: string;
-  title: string;
-  typeDoc: string;
-  typeId: string;
+  repositoryId: string;
+}
+
+export type PdfReport = {
+  header: Header;
+  body: Body;
+}
+
+export type Header = {
+  documentId: string;
 };
 
-export type DocumentBody = {
-  content: string;
-  encodedBase64: boolean;
-  mimeType: string;
-};
-
-export type DocumentAttachment = {
-  content: string;
+export type Body = {
+  mimeType: DocumentMimeType;
   fileName: string;
+  content: string;
   encodedBase64: boolean;
-  mimeType: string;
 };
 
-export type DocumentAuthor = {
+export type LinkExternalDicom = {
+  body: BodyLinkDicom;
+}
+
+export type BodyLinkDicom = {
+  mimeType: DocumentMimeType;
+  encodedBase64: boolean;
+  downloadUrl: string;
+}
+
+export interface Dicom {
   name: string;
-  surname: string;
-  fiscalCode: string;
-  contacts: Array<string>;
-};
+  url: string;
+}
+
+// Error
+
+export type ErrorResponse = {
+  correlationId: string,
+  errorCode: string,
+  errorMessage: string,
+  description: string,
+  datetime: string
+}

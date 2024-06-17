@@ -1,0 +1,8 @@
+@import '../scss/shared-variables';
+@import 'bootstrap/scss/mixins/breakpoints';
+
+::ng-deep .img-banner-logo {
+  @include media-breakpoint-down(md) {
+    width: 35% !important;
+  }
+}

@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './load-spinner.component.scss'
 })
 export class LoadSpinnerComponent {
-  @Input() showLabel: boolean = true;
+  @Input() showLabel!: boolean;
   @Input() appendToBody: boolean = false;
-  @Input() styleClass: string = '';
+  @Input() styleClass?: string;
 }

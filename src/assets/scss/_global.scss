@@ -11,6 +11,7 @@ app-layout {
 }
 
 app-home,
+app-list-report,
 app-report {
   flex-grow: 1;
 }
@@ -63,6 +64,12 @@ app-report {
 
 // Typography
 
+a {
+  h1, h2, h3, h4, h5, h6 {
+    cursor: pointer;
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   cursor: default;
 }
@@ -95,3 +102,4 @@ h1, h2, h3, h4, h5, h6 {
   --#{$prefix}font-size-sm: #{$font-size-sm};
   --#{$prefix}font-size-lg: #{$font-size-lg};
 }
+

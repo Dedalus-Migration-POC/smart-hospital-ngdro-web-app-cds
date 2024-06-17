@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ReportDocument } from '../models/report';
+import { Report } from '../models/report';
 
 @Injectable({
   providedIn: 'root'
@@ -9,16 +9,21 @@ export class SessionService {
 
   constructor() { }
 
-  saveData<T>(key: string, value: T): void {
+  saveReports(key: string, value: Array<Report>): void {
     sessionStorage.setItem(key, JSON.stringify(value));
   }
 
-  getData<T>(key: string): T | null {
+  getReports(key: string): Array<Report> {
     const data = sessionStorage.getItem(key);
-    return data ? JSON.parse(data) as T : null;
+    return data ? JSON.parse(data) : [];
   }
 
-  removeData(key: string): void {
+  getReportCount(key: string): number {
+    const reports = this.getReports(key);
+    return reports.length;
+  }
+
+  removeReports(key: string): void {
     sessionStorage.removeItem(key);
   }
 

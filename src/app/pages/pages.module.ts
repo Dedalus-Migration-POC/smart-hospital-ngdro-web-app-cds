@@ -1,24 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { ComponentsModule } from '../components/components.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
-import { ReportComponent } from './report/report.component';
-import { NewlineToBrPipe } from '../utils/pipes/newline-to-br.pipe';
+import { ComponentsModule } from '../components/components.module';
+import { HomeModule } from './home/home.module';
+import { ListReportComponent } from './list-report/list-report.component';
 import { ImageComponent } from '../components/image/image.component';
+import { ReportModule } from './report/report.module';
 
 @NgModule({
-  declarations: [HomeComponent, ReportComponent, NewlineToBrPipe],
+  declarations: [
+    ListReportComponent
+  ],
   imports: [
     CommonModule,
     TranslateModule,
-    ComponentsModule,
     FontAwesomeModule,
     RouterModule,
-    ImageComponent,
+    ComponentsModule,
+    HomeModule,
+    ReportModule,
+
+    // standalone
+    ImageComponent
   ],
+  exports: [
+    ListReportComponent
+  ]
 })
 export class PagesModule {}

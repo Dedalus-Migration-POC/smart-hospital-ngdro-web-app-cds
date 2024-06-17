@@ -18,8 +18,7 @@
                 {{ faq.title }}
               </button>
             </label>
-            <div [id]="'panel-' + i + '_' + j" class="accordion-collapse collapse"
-                 [attr.aria-labelledby]="'heading' + i + j" [attr.data-bs-parent]="'#accordion-' + i ">
+            <div [id]="'panel-' + i + '_' + j" class="accordion-collapse collapse" [attr.data-bs-parent]="'#accordion-' + i ">
               <div class="accordion-body">
                 <span [innerHTML]="sanitizeHtml(faq.content)"></span>
               </div>

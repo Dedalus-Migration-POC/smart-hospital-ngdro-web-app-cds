@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row g-0 mt-3 mb-2 px-3 bg-yellow align-items-center">
+    <div class="col-xs-12 col-md-8 col-lg-9">
+      <div class="d-flex align-items-center">
+        <app-image src="file-pdf.svg" alt="pdf" />
+        <label class="ms-2">{{ pdf.body.fileName }}</label>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-md-4 col-lg-3">
+      <div class="d-flex gap-3 justify-content-end">
+        <button type="button" class="btn btn-link text-decoration-none px-0" (click)="downloadPDF()">
+          <app-image src="download.svg" alt="download" />
+          {{ 'report.download' | translate }}
+        </button>
+
+        <button type="button" class="btn btn-link text-decoration-none px-0" (click)="printPDF()">
+          <app-image src="print.svg" alt="print" />
+          {{ 'report.print' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-0 mb-3">
+    <div class="col-12">
+      <pdf-viewer [src]="pdfSrc"
+                  [rotation]="0"
+                  [original-size]="true"
+                  [autoresize]="true"
+                  [fit-to-page]="false">
+      </pdf-viewer>
+    </div>
+  </div>
+</div>
+
+

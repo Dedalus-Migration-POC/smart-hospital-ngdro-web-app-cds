@@ -3,7 +3,7 @@ import { ModalService } from '../../services/modal.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { ReportDocument, ReportRequest } from '../../models/report';
+import { Report, ReportRequest } from '../../models/report';
 import { ReportService } from '../../services/report.service';
 import { SessionService } from '../../services/session.service';
 import { Type } from '../../models/modal';
@@ -33,13 +33,25 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
 
     this.reportService.findReports(formData).subscribe({
-      next: (data: Array<ReportDocument> ) => {
+      next: (data: Array<Report> ) => {
         this.isLoading = false;
 
-        if (data) {
-          this.sessionService.saveData<ReportRequest>('patient', formData);
-          this.sessionService.saveData<ReportDocument>('report', data[0]);
-          this.router.navigate(['/report']);
+        if (data.length === 0) {
+          this.modalService.open(this.viewContainerRef, {
+            type: Type.ERROR,
+            title: this.translateService.instant('warning'),
+            body: this.translateService.instant('home.cardReport.form.emptyListReport'),
+            centered: true
+          });
+
+        } else {
+          this.sessionService.saveReports('reports', data);
+
+          if (data.length === 1) {
+            this.router.navigate(['/report', data[0].documentId]);
+          } else if (data.length > 1) {
+            this.router.navigate(['/list-report']);
+          }
         }
       },
       error: () => {
@@ -47,8 +59,8 @@ export class HomeComponent implements OnInit {
 
         this.modalService.open(this.viewContainerRef, {
           type: Type.ERROR,
-          title: this.translateService.instant('home.cardReport.form.error.title'),
-          body: this.translateService.instant('home.cardReport.form.error.reportNotFound'),
+          title: this.translateService.instant('warning'),
+          body: this.translateService.instant('home.cardReport.form.credentialsError'),
           centered: true
         });
       }

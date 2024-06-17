@@ -1,66 +1,47 @@
-<div class="report container d-flex flex-column h-100 position-relative">
-
-  <div *ngIf="view.current === ViewMode.IMAGE && !isLoadingView" class="d-none d-lg-flex justify-content-end report__banner">
-    <img src="assets/images/banner-logo-report.svg" class="opacity-25" alt="banner-logo">
-  </div>
-
-  <div class="row gt-0 my-3">
+<div class="container h-100 d-flex flex-column" *ngIf="report">
+  <div class="row g-0 py-3">
     <div class="col-12">
-      <button type="button" class="btn btn-link text-decoration-none px-2 fw-semibold fs-sm" (click)="goBack()">
+      <button type="button" class="btn btn-link text-decoration-none px-2 py-0 fw-semibold fs-sm" (click)="goBack()">
         <fa-icon [icon]="['fas', 'arrow-left']"></fa-icon>
-        {{ 'report.back' | translate }}
+        {{ 'goBack' | translate }}
       </button>
     </div>
   </div>
 
-  <div class="row gt-0 mb-3">
-    <div class="col-12" [class.col-md-6]="view.current === ViewMode.IMAGE" [class.col-lg-5]="view.current === ViewMode.IMAGE">
-      <div class="h-100 d-flex flex-column px-2">
-        <h2>{{ reportDocument?.name }}</h2>
-        <h6 class="fw-normal"> {{ 'report.releaseDate' | translate: { date: releaseDateObj?.date, time: releaseDateObj?.time } }}</h6>
-      </div>
-    </div>
-
-    <div *ngIf="view.current === ViewMode.IMAGE" class="col-12 col-md-6 col-lg-4 z-1">
-      <div class="d-flex align-items-center justify-content-end">
-        <button type="button" class="btn btn-primary" (click)="getPdfDocument(reportDocument?.documentId!)">
-          <img src="assets/images/file.svg" class="me-2" alt="pdf">
-          <span>{{ 'report.openReport' | translate }}</span>
-        </button>
-      </div>
+  <div class="row g-0 mb-3">
+    <div class="col-12">
+      <h2 class="px-2 mb-0">{{ report.name }}</h2>
+      <h6 *ngIf="!hasDicom" class="px-2 fw-normal"> {{ 'report.releaseDate' | translate: { date: releaseDate?.date, time: releaseDate?.time } }}</h6>
     </div>
   </div>
 
-  <ng-container *ngIf="!isLoadingView; else loading"
-                [ngSwitch]="view.current">
-    <ng-container *ngSwitchCase="ViewMode.IMAGE">
-      <div class="position-relative">
-        <div class="row gt-0">
-          <div class="col-12 col-lg-9">
-            <app-frame [urls]="getValues(reportDocument?.additionalInfo!)"></app-frame>
-          </div>
-        </div>
-      </div>
+  <ng-container *ngIf="hasDicom; else onlyPdf">
+    <app-card [report]="report" (showReport)="showReport($event)" [ngClass]="{'pe-none': loadingReport}"></app-card>
+
+    <ng-container *ngIf="loadingReport; else viewReport">
+        <ng-container *ngTemplateOutlet="loading"></ng-container>
     </ng-container>
 
-    <ng-container *ngSwitchCase="ViewMode.PDF_SINGLE">
-        <app-pdf-viewer [pdfBase64]="pdfDocument?.body?.content"
-                        [mimeType]="pdfDocument?.body?.mimeType"
-                        [fileName]="pdfDocument?.header?.title"></app-pdf-viewer>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="ViewMode.PDF_MULTI">
-      <app-list-pdf [list]="reportDocument?.relatedDocuments!" (showPdf)="showPdf($event)" [ngClass]="{'pe-none': isLoadingView }"></app-list-pdf>
-
-      <ng-container *ngIf="!isLoadingPdf; else loading">
-        <app-pdf-viewer [pdfBase64]="pdfDocument?.body?.content"
-                        [mimeType]="pdfDocument?.body?.mimeType"
-                        [fileName]="pdfDocument?.header?.title"></app-pdf-viewer>
+    <ng-template #viewReport>
+      <ng-container *ngIf="selectedReport?.mimeType === MimeTypeEnum.DICOM && dicom">
+        <app-frame [dicom]="dicom"></app-frame>
       </ng-container>
+      <ng-container *ngIf="selectedReport?.mimeType === MimeTypeEnum.PDF && pdf">
+        <app-pdf-viewer [pdf]="pdf"></app-pdf-viewer>
       </ng-container>
+    </ng-template>
   </ng-container>
-</div>
 
-<ng-template #loading>
-  <app-load-spinner class="h-100 d-flex justify-content-center align-items-center my-5" [showLabel]="true" [styleClass]="'text-yellow'"></app-load-spinner>
-</ng-template>
+  <ng-template #onlyPdf>
+    <ng-container *ngIf="pdf; else loading">
+      <app-pdf-viewer [pdf]="pdf"></app-pdf-viewer>
+    </ng-container>
+  </ng-template>
+
+
+  <ng-template #loading>
+    <app-load-spinner class="flex-grow-1 d-flex justify-content-center align-items-center py-3"
+                      [showLabel]="true"
+                      styleClass="text-yellow"></app-load-spinner>
+  </ng-template>
+</div>

@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './pages/home/home.component';
-import { ReportComponent } from './pages/report/report.component';
 import { LayoutComponent } from './layout/layout.component';
+import { ListReportComponent } from './pages/list-report/list-report.component';
+import { ReportComponent } from './pages/report/report.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', component: HomeComponent },
-      { path: 'report', component: ReportComponent },
+      { path: 'list-report', component: ListReportComponent },
+      { path: 'report/:id', component: ReportComponent },
     ],
   },
   {

@@ -1,0 +1,34 @@
+<div class="container d-flex flex-column">
+  <div class="row gt-0 my-3">
+    <div class="col-12">
+      <button type="button" class="btn btn-link text-decoration-none px-2 py-0 fw-semibold fs-sm" (click)="goBack()">
+        <fa-icon [icon]="['fas', 'arrow-left']"></fa-icon>
+        {{ 'goBack' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div class="row gt-0 mb-3">
+    <div class="col-12">
+      <h2 class="px-2"> {{ 'list-report.reports' | translate }}</h2>
+    </div>
+  </div>
+
+  <div class="row gt-0 mb-3">
+    <div class="col-12 col-lg-6">
+      <div class="list-group">
+        <a href="javascript:void(0)" *ngFor="let report of reports" class="list-group-item list-group-item-action border-end-0 border-start-0 border-top-0" (click)="goToReport(report.documentId)">
+          <div class="d-flex flex-row align-items-center justify-content-between">
+            <div class="d-flex flex-column gap-1">
+              <h6 class="lh-base text-primary mb-0">{{report.name}}</h6>
+              <small>{{ 'list-report.released' | translate }} {{ formatDate(report.releaseDate) }}</small>
+            </div>
+            <fa-icon [icon]="['fas', 'angle-right']" class="text-primary"></fa-icon>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-image src="banner-logo-list-report.svg" class="d-block w-100" styleClass="img-banner-logo float-end" alt="banner-logo"></app-image>

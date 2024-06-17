@@ -1,0 +1,27 @@
+<nav class="bg-info border-bottom">
+  <div class="container d-flex flex-wrap py-1">
+    <ul class="nav me-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark px-2">{{ 'header.modules' | translate }}</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark px-2">{{ 'header.contacts' | translate }}</a>
+      </li>
+    </ul>
+    <ul class="nav">
+      <li class="nav-item d-flex align-items-center">
+        <div class="dropdown">
+          <button class="btn btn-link text-dark fw-bold text-decoration-none p-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ currentLangLabel }}
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="#" (click)="changeLanguage('it')">{{ Langs.it }}</a>
+            </li>
+          </ul>
+        </div>
+
+      </li>
+    </ul>
+  </div>
+</nav>

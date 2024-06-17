@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row g-0 list-group list-group-horizontal">
+    <a href="javascript:void(0)"
+       *ngFor="let dicom of dicoms;" aria-current="true"
+       class="list-group-item col-12 m-0"
+       [ngClass]="{ 'border border-primary': selectedReport === dicom}"
+       (click)="selectReport(dicom)">
+      <div class="d-flex flex-row align-items-center">
+        <app-image src="file-img-primary.svg" alt="file img" height="36" width="36" />
+        <div class="d-flex flex-column ms-2">
+          <span class="file-name">{{ dicom.name }}</span>
+          <small class="viewing" *ngIf="selectedReport === dicom">{{ 'report.card.viewing' | translate }}</small>
+          <a *ngIf="selectedReport !== dicom" href="javascript:void(0)" class="text-decoration-none fs-sm fw-semibold lh-sm">
+            {{ 'report.card.view' | translate }}
+          </a>
+        </div>
+      </div>
+    </a>
+
+    <a href="javascript:void(0)" aria-current="true"
+       class="list-group-item col-12 m-0"
+       [ngClass]="{ 'border border-primary': selectedReport === pdf }"
+       (click)="selectReport(pdf)">
+      <div class="d-flex flex-row align-items-center">
+        <app-image src="file-pdf-primary.svg" alt="file img" height="36" width="36" />
+        <div class="d-flex flex-column ms-2">
+          <span class="file-name">{{ pdf.name }}</span>
+          <small class="viewing" *ngIf="selectedReport === pdf">{{ 'report.card.viewing' | translate }}</small>
+          <a *ngIf="selectedReport !== pdf" href="javascript:void(0)" class="text-decoration-none fs-sm fw-semibold lh-sm">
+            {{ 'report.card.view' | translate }}
+          </a>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

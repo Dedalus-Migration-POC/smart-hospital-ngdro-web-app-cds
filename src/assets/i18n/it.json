@@ -8,6 +8,7 @@
   "access": "Accesso",
   "send": "Invia",
   "back": "Indietro",
+  "goBack": "Torna indietro",
   "refresh": "Aggiorna",
   "goAccess": "Accedi",
   "accessTitle": "Accedi con le tue credenziali",
@@ -31,30 +32,26 @@
         "pickupCodeValidation": "*Rispetta le maiuscole e minuscole",
         "cf": "Codice fiscale",
         "viewPdf": "Visualizza referto",
-        "error": {
-          "title": "Errore",
-          "fiscalCodeNotValid": "Codice fiscale non valido.",
-          "reportNotFound": "Nessun referto trovato, verificare i dati inseriti"
-        }
+        "emptyListReport": "Nessun referto trovato",
+        "credentialsError": "Credenziali errate per il recupero dei documenti"
       }
     },
     "faq": "FAQ - Domande frequenti"
   },
+  "list-report": {
+    "reports": "Esami effettuati",
+    "released": "Referto del"
+  },
   "report": {
-    "back": "Torna indietro",
     "download": "Scarica",
     "print": "Stampa",
-    "openReport": "Apri referto",
     "releaseDate": "Creato il {{date}} alle {{time}}",
-    "list-pdf": {
-      "documents": "Documenti",
+    "card": {
       "view": "Visualizza",
       "viewing": "Stai visualizzando"
     },
-    "error": {
-      "title": "Errore referto",
-      "pdf": "Impossibile recuperare il referto, riprovare."
-    }
+    "notFound": "Documento non trovato nel repository (XDS o Zeeromed)",
+    "externalDicomError": "Impossibile recuperare link per visualizzare il file DICOM"
   },
   "footer": {
     "project": "Progetto di",

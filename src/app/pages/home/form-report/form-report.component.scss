@@ -1,4 +1,4 @@
-@import 'shared-variables';
+@import '../scss/shared-variables';
 
 .card {
   --#{$prefix}card-spacer-y: 2.5rem;

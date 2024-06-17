@@ -1,12 +1,14 @@
-@import "shared-variables";
+@import '../scss/shared-variables';
+@import 'bootstrap/scss/mixins/breakpoints';
 
-.list-pdf {
   .list-group {
     --#{$prefix}list-group-border-width: 0px;
     --#{$prefix}list-group-bg: #f2f2f2;
     --#{$prefix}list-group-border-radius: .5rem;
     --#{$prefix}list-group-item-padding-y: .813rem;
     --#{$prefix}list-group-item-padding-x: 1.188rem;
+
+    gap: .625rem;
 
     &.list-group-horizontal > .list-group-item {
       &:first-child:not(:last-child) {
@@ -24,10 +26,17 @@
       &.border.border-primary {
         --#{$prefix}border-width: 2px;
       }
-    }
 
-    .list-pdf__viewing {
-      text-color: var(--#{$prefix}gray-600, #878787);
+      .viewing {
+        text-color: var(--#{$prefix}gray-600, #878787);
+      }
+
+      @include media-breakpoint-only(md) {
+        width: 20rem;
+      }
+
+      @include media-breakpoint-up(lg) {
+        width: 24.5rem;
+      }
     }
   }
-}

@@ -20,9 +20,11 @@
           <h4 class="modal-title">{{ modal.title }}</h4>
           <button type="button" class="btn-close" (click)="onClose()"></button>
         </div>
-        <div *ngIf="modal.body" class="modal-body pt-0 lh-lg">{{ modal.body }}</div>
+        <div *ngIf="modal.body" class="modal-body lh-lg">
+          <label>{{ modal.body }}</label>
+        </div>
         <div *ngIf="modal.footer" class="modal-footer">
-          {{ modal.footer }}
+          <label>{{ modal.footer }}</label>
         </div>
       </div>
   </div>

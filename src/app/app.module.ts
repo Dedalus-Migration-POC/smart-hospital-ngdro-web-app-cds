@@ -15,9 +15,6 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { PagesModule } from './pages/pages.module';
 
-//TODO test interceptor
-import { MockHttpInterceptor } from './services/test/mock-http.interceptor';
-import { ErrorInterceptor } from './services/test/error-http.interceptor';
 import { deployUrl } from '../main';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -40,10 +37,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     LayoutModule,
     PagesModule,
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: MockHttpInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

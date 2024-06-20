@@ -1,10 +1,11 @@
-const staging = "http://54.155.59.59:89";
-const integration = "https://digitalservices-test.mondino.it:89";
-const prod = "https://digitalservices.mondino.it:89";
-const cds = "http://10.142.89.8/";
+// const staging = "http://54.155.59.59:89";
+// const integration = "https://digitalservices-test.mondino.it:89";
+// const prod = "https://digitalservices.mondino.it:89";
+const cds = "http://10.142.89.8:80";
 
 const routes = [
   "/api",
+  "/health-repository",
   "/uaa",
   "/sso",
   "/profile-manager",

@@ -8,10 +8,4 @@
   &-bg {
     background-color: var(--#{$prefix}footer-bg);
   }
-
-  & >.container {
-    .footer__logo {
-      height: 70px;
-    }
-  }
 }

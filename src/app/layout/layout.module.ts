@@ -7,6 +7,7 @@ import { SlimHeaderComponent } from './slim-header/slim-header.component';
 import { HeaderComponent } from './header/header.component';
 import { LayoutComponent } from './layout.component';
 import { FooterComponent } from './footer/footer.component';
+import { ImageComponent } from '../components/image/image.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,14 @@ import { FooterComponent } from './footer/footer.component';
     LayoutComponent,
     FooterComponent
   ],
-  imports: [CommonModule, TranslateModule, RouterModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    RouterModule,
+
+    // standalone
+    ImageComponent
+  ],
   exports: [
     SlimHeaderComponent,
     HeaderComponent,

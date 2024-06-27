@@ -1,3 +1,5 @@
+@import "shared-variables";
+
 /***** Override bootstrap variables *****/
 
 // Color system
@@ -21,6 +23,12 @@ $cyan:                      #00c6b2 !default;
 
 
 $primary:                   $blue !default;
+
+// Prefix for :root CSS variables
+$prefix:                    $prefix !default;
+
+// Grid breakpoints
+$grid-breakpoints:          $grid-breakpoints !default;
 
 // Options
 
@@ -106,6 +114,8 @@ $modal-header-padding:                    0 .5rem !default;
 $modal-header-border-width:               0px !default;
 
 $modal-footer-border-width:               1px !default;
+
+$modal-md:                                600px !default;
 
 // List group
 

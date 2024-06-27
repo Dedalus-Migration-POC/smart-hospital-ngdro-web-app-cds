@@ -33,7 +33,7 @@
         "cf": "Codice fiscale",
         "viewPdf": "Visualizza referto",
         "emptyListReport": "Nessun referto trovato",
-        "credentialsError": "Credenziali errate per il recupero dei documenti"
+        "notFound": "Il recupero del referto non è andato a buon fine. La preghiamo di riprovare controllando i dati inseriti.<br><br>Di seguito le cause per il cui l'accesso non è andato a buon fine:<ul class=\"mb-0\"><li>I referti afferenti alla richiesta non sono ancora stati pubblicati.</li><li>Il codice ritiro è scaduto (scade dopo 45 giorni dalla pubblicazione).</li><li>Errore nell'inserimento del codice ritiro.</li><li>Errore nell'inserimento del codice fiscale.</li></ul><br>In caso di necessità la invitiamo a contattare il CUP di CdS."
       }
     },
     "faq": "FAQ - Domande frequenti"

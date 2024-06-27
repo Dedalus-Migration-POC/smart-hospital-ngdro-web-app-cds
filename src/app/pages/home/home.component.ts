@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
         this.modalService.open(this.viewContainerRef, {
           type: Type.ERROR,
           title: this.translateService.instant('warning'),
-          body: this.translateService.instant('home.cardReport.form.credentialsError'),
+          body: this.translateService.instant('home.cardReport.form.notFound'),
           centered: true
         });
       }

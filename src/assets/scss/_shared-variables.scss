@@ -14,3 +14,13 @@ $grid-breakpoints: (
   xl: 1200px,
   xxl: 1400px
 ) !default;
+
+
+// ***** Custom variables *****
+
+// Modal
+$modal-bg:                            rgba(0, 0, 0, 0.5);
+
+// Spinner
+
+$zindex-spinner:                      1056;

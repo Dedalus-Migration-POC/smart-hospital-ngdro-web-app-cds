@@ -1,27 +1,40 @@
 @import "shared-variables";
 
-.modal-content {
-  border-left-width: 6px;
+.modal {
+  background-color: $modal-bg;
 
-  &.modal-border-left-success {
-    border-left-color: var(--#{$prefix}success);
+  .modal-content {
+    border-left-width: 6px;
+
+    &.modal-border-left-success {
+      border-left-color: var(--#{$prefix}success);
+    }
+
+    &.modal-border-left-danger {
+      border-left-color: var(--#{$prefix}danger);
+    }
+
+    &.modal-border-left-info {
+      border-left-color: var(--#{$prefix}info);
+    }
+
+    &.modal-border-left-warning {
+      border-left-color: var(--#{$prefix}warning);
+    }
+
+    .modal-title {
+      margin-left: 1rem;
+    }
+
+    .modal-footer {
+      padding: 0 var(--#{$prefix}modal-header-padding);
+
+      .btn {
+        --#{$prefix}btn-padding-x: 2.5rem;
+        --#{$prefix}btn-padding-y: .25rem;
+      }
+    }
   }
 
-  &.modal-border-left-danger {
-    border-left-color: var(--#{$prefix}danger);
-  }
-
-  &.modal-border-left-info {
-    border-left-color: var(--#{$prefix}info);
-  }
-
- .modal-title {
-   margin-left: 1rem;
- }
-
-  .modal-body,
-  .modal-footer {
-    margin-left: calc(1rem + 28px); // 28px type-icon
-  }
 }
 

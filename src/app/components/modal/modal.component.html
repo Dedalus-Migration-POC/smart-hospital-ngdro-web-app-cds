@@ -15,16 +15,21 @@
                 <fa-icon [icon]="['fas', 'circle-exclamation']"
                          class="fs-3 {{'text-' + Type.ERROR | lowercase }}"></fa-icon>
               </ng-container>
+              <ng-container *ngSwitchCase="Type.WARNING">
+                <fa-icon [icon]="['fas', 'circle-exclamation']"
+                         class="fs-3 {{'text-' + Type.WARNING | lowercase }}"></fa-icon>
+              </ng-container>
             </ng-container>
 
           <h4 class="modal-title">{{ modal.title }}</h4>
-          <button type="button" class="btn-close" (click)="onClose()"></button>
         </div>
         <div *ngIf="modal.body" class="modal-body">
           <p [innerHTML]="modal.body"></p>
         </div>
-        <div *ngIf="modal.footer" class="modal-footer">
-          <label>{{ modal.footer }}</label>
+        <div class="modal-footer">
+          <button class="btn btn btn-outline-primary" (click)="onClose()">
+            {{ 'close' | translate }}
+          </button>
         </div>
       </div>
   </div>

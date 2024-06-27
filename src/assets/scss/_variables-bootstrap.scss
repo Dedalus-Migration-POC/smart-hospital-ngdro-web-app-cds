@@ -45,10 +45,6 @@ $container-max-widths: (
   xxl: 1280px
 ) !default;
 
-// Components
-
-$box-shadow:                            0px 3px 4px 0px rgba(0, 0, 0, 0.25) !default;
-
 // Typography
 
 $font-family-sans-serif:                'Titillium Web', 'Montserrat', Roboto !default;
@@ -108,14 +104,14 @@ $accordion-button-active-icon:           url("data:image/svg+xml;utf8,<svg xmlns
 $modal-content-border-color:              #2F475E !default;
 $modal-content-border-radius:             0px !default;
 
-$modal-inner-padding:                     .5rem !default;
+$modal-inner-padding:                     0 1rem !default;
 
-$modal-header-padding:                    0 .5rem !default;
+$modal-header-padding:                    1rem 1rem !default;
 $modal-header-border-width:               0px !default;
 
-$modal-footer-border-width:               1px !default;
+$modal-footer-border-width:               0px !default;
 
-$modal-md:                                600px !default;
+$modal-md:                                450px !default;
 
 // List group
 

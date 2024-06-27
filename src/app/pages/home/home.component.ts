@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
 
         if (data.length === 0) {
           this.modalService.open(this.viewContainerRef, {
-            type: Type.ERROR,
+            type: Type.WARNING,
             title: this.translateService.instant('warning'),
             body: this.translateService.instant('home.cardReport.form.emptyListReport'),
             centered: true
@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
         this.isLoading = false;
 
         this.modalService.open(this.viewContainerRef, {
-          type: Type.ERROR,
+          type: Type.WARNING,
           title: this.translateService.instant('warning'),
           body: this.translateService.instant('home.cardReport.form.notFound'),
           centered: true

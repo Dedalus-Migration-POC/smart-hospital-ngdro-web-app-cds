@@ -98,7 +98,7 @@ export class ReportComponent implements OnInit {
         this.loadingReport = false;
 
         this.modalService.open(this.viewContainerRef, {
-          type: Type.ERROR,
+          type: Type.WARNING,
           title: this.translateService.instant('warning'),
           body: this.translateService.instant('report.notFound'),
           centered: true
@@ -126,7 +126,7 @@ export class ReportComponent implements OnInit {
           this.loadingReport = false;
 
           this.modalService.open(this.viewContainerRef, {
-            type: Type.ERROR,
+            type: Type.WARNING,
             title: this.translateService.instant('warning'),
             body: this.translateService.instant('report.externalDicomError'),
             centered: true

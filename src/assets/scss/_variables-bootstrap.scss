@@ -17,12 +17,14 @@ $black:                     #000 !default;
 
 $blue:                      #003DA6 !default;
 $red:                       #dc3545 !default;
+$orange:                    #d77f07 !default;
 $yellow:                    #e1ad18 !default;
 $green:                     #007167 !default;
 $cyan:                      #00c6b2 !default;
 
 
 $primary:                   $blue !default;
+$warning:                   $orange !default;
 
 // Prefix for :root CSS variables
 $prefix:                    $prefix !default;

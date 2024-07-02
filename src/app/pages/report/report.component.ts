@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewContainerRef} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { it } from 'date-fns/locale';
 
@@ -6,9 +6,9 @@ import { Report, MimeTypeEnum, PdfReport, Repository, Dicom, LinkExternalDicom }
 import { SessionService } from '../../services/session.service';
 import { ReportService } from '../../services/report.service';
 import { format, parseISO } from 'date-fns';
-import {Type} from "../../models/modal";
-import {TranslateService} from "@ngx-translate/core";
-import {ModalService} from "../../services/modal.service";
+import { Type } from "../../models/modal";
+import { TranslateService } from "@ngx-translate/core";
+import { ModalService } from "../../services/modal.service";
 
 @Component({
   selector: 'app-report',
@@ -23,7 +23,6 @@ export class ReportComponent implements OnInit {
   dicom: Dicom | undefined;
 
   MimeTypeEnum = MimeTypeEnum;
-  Repository = Repository;
 
   loadingReport = false;
   hasDicom: boolean = false;
@@ -44,6 +43,7 @@ export class ReportComponent implements OnInit {
         const reports = this.sessionService.getReports('reports');
         if (reports) {
           this.report = reports.find(report => report.documentId === reportId);
+
           if (this.report) {
             this.hasDicom = !!(this.report.relatedDocuments && this.report.relatedDocuments.length > 0);
             if (!this.hasDicom) { // only pdf
@@ -73,7 +73,6 @@ export class ReportComponent implements OnInit {
       return;
     }
 
-    this.selectedReport = report;
     this.loadingReport = true;
 
     if (report.mimeType === MimeTypeEnum.PDF) {
@@ -81,6 +80,8 @@ export class ReportComponent implements OnInit {
     } else if (report.mimeType === MimeTypeEnum.DICOM) {
       this.getDicom(report);
     }
+
+    this.selectedReport = report;
   }
 
   getPdf(report: Report): void {
@@ -96,6 +97,7 @@ export class ReportComponent implements OnInit {
       },
       error: () => {
         this.loadingReport = false;
+        this.pdf = undefined;
 
         this.modalService.open(this.viewContainerRef, {
           type: Type.WARNING,
@@ -108,10 +110,10 @@ export class ReportComponent implements OnInit {
   }
 
   getDicom(report: Report): void {
-    if (report.repositoryId === Repository.EXTERNAL_DICOM) {
+    const getLinkDicom = (documentId: string, repositoryId: string) => {
       this.reportService.getExternalDicom({
-        documentId: report.documentId,
-        repositoryId: report.repositoryId
+        documentId,
+        repositoryId
       }).subscribe({
         next: (data: LinkExternalDicom) => {
           this.loadingReport = false;
@@ -124,6 +126,7 @@ export class ReportComponent implements OnInit {
         },
         error: () => {
           this.loadingReport = false;
+          this.dicom = undefined;
 
           this.modalService.open(this.viewContainerRef, {
             type: Type.WARNING,
@@ -133,12 +136,45 @@ export class ReportComponent implements OnInit {
           });
         }
       });
-    } else {
+    };
+
+    if (report?.referenceId) { // first time with ZEEROMED
       this.loadingReport = false;
+
       this.dicom = {
         name: report.name,
         url: report?.referenceId ?? ''
       };
+
+      /**
+       * The zeeromed link for iframe received from the BE (findDocuments) only works the first time,
+       * subsequent times a retrieve document must be done as for AH4 ('external-dicom')
+       */
+
+      // Update the reports object in the session
+      const reports = this.sessionService.getReports('reports') || [];
+      const updatedReports = reports.map(r => {
+        if (r.documentId === this.report?.documentId) {
+          if (r.relatedDocuments) {
+            r.relatedDocuments = r.relatedDocuments.map(rd => {
+              if (rd.documentId === report.documentId) {
+                delete rd.referenceId;
+              }
+              return rd;
+            });
+          }
+          return { ...r };
+        }
+        return r;
+      });
+
+      this.sessionService.saveReports('reports', updatedReports);
+      delete report.referenceId;
+
+    } else if (!report.repositoryId || report.repositoryId === Repository.ZEEROMED) {
+      getLinkDicom(report.documentId, Repository.EXTERNAL_DICOM);
+    } else if (report.repositoryId === Repository.EXTERNAL_DICOM) {
+      getLinkDicom(report.documentId, Repository.EXTERNAL_DICOM);
     }
   }
 

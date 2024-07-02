@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { Dicom } from '../../../models/report';
@@ -7,9 +7,9 @@ import { Dicom } from '../../../models/report';
   selector: 'app-frame',
   templateUrl: './frame.component.html'
 })
-export class FrameComponent implements OnInit, OnChanges {
+export class FrameComponent implements OnInit, OnChanges, OnDestroy {
   @Input() dicom!: Dicom;
-  sanitizedUrl!: SafeResourceUrl;
+  sanitizedUrl!: SafeResourceUrl | null;
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -27,5 +27,9 @@ export class FrameComponent implements OnInit, OnChanges {
     if (this.dicom?.url.trim().length > 0) {
       this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.dicom.url);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.sanitizedUrl = null;
   }
 }

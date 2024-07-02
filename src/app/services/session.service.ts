@@ -23,10 +23,6 @@ export class SessionService {
     return reports.length;
   }
 
-  removeReports(key: string): void {
-    sessionStorage.removeItem(key);
-  }
-
   clearAll(): void {
     sessionStorage.clear();
   }

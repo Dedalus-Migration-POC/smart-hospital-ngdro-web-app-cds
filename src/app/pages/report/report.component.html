@@ -11,12 +11,12 @@
   <div class="row g-0 mb-3">
     <div class="col-12">
       <h2 class="px-2 mb-0">{{ report.name }}</h2>
-      <h6 *ngIf="!hasDicom" class="px-2 fw-normal"> {{ 'report.releaseDate' | translate: { date: releaseDate?.date, time: releaseDate?.time } }}</h6>
+      <h6 *ngIf="!hasDicom" class="px-2 fw-normal mt-2"> {{ 'report.releaseDate' | translate: { date: releaseDate?.date, time: releaseDate?.time } }}</h6>
     </div>
   </div>
 
-  <ng-container *ngIf="hasDicom; else onlyPdf">
-    <app-card [report]="report" (showReport)="showReport($event)" [ngClass]="{'pe-none': loadingReport}"></app-card>
+  <div *ngIf="hasDicom; else onlyPdf" class="position-relative h-100 d-flex flex-column">
+    <app-card [report]="report" (showReport)="showReport($event)"></app-card>
 
     <ng-container *ngIf="loadingReport; else viewReport">
         <ng-container *ngTemplateOutlet="loading"></ng-container>
@@ -30,7 +30,7 @@
         <app-pdf-viewer [pdf]="pdf"></app-pdf-viewer>
       </ng-container>
     </ng-template>
-  </ng-container>
+  </div>
 
   <ng-template #onlyPdf>
     <ng-container *ngIf="pdf; else loading">
@@ -40,8 +40,16 @@
 
 
   <ng-template #loading>
-    <app-load-spinner class="flex-grow-1 d-flex justify-content-center align-items-center py-3"
-                      [showLabel]="true"
-                      styleClass="text-yellow"></app-load-spinner>
+    <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+      <div class="position-absolute top-0 h-100 w-100 pe-0 z-3"></div>
+      <app-load-spinner class="py-3"
+                        [showLabel]="true"
+                        styleClass="text-yellow"></app-load-spinner>
+    </div>
+
+  </ng-template>
+
+  <ng-template #errorDicom>
+    <label>{{ 'report.externalDicomError' | translate }}</label>
   </ng-template>
 </div>

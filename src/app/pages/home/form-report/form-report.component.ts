@@ -6,7 +6,7 @@ import { ReportRequest } from '../../../models/report';
 @Component({
   selector: 'app-form-report',
   templateUrl: './form-report.component.html',
-  styleUrl: './form-report.component.scss'
+  styleUrls: ['./form-report.component.scss'] // correzione da 'styleUrl' a 'styleUrls'
 })
 export class FormReportComponent implements OnInit {
   @Output() patient: EventEmitter<ReportRequest> = new EventEmitter<ReportRequest>();
@@ -16,7 +16,7 @@ export class FormReportComponent implements OnInit {
   constructor() {
     this.form = new FormGroup({
       securityCode: new FormControl('', Validators.required),
-      patientId: new FormControl({ value: '', disabled: true }, [Validators.required])
+      patientId: new FormControl({ value: '', disabled: true }, Validators.required)
     });
   }
 
@@ -35,6 +35,10 @@ export class FormReportComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
+      const patientIdControl = this.form.get('patientId');
+      if (patientIdControl && patientIdControl.value) {
+        patientIdControl.setValue(patientIdControl.value.toUpperCase(), { emitEvent: false });
+      }
       this.patient.emit(this.form.value);
     }
   }

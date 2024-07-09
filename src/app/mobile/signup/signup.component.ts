@@ -226,7 +226,7 @@ export class SignupComponent implements OnInit {
       () => {
         this.registering = false;
         WebChannel.postString('signUpSuccess');
-        this.router.navigate(['../sign-up-success'], {
+        this.router.navigate(['../success'], {
           queryParamsHandling: 'merge',
           relativeTo: this.activatedRoute,
         });

@@ -1,29 +1,13 @@
 @import "shared-variables";
 
 .modal {
-  background-color: $modal-bg;
+  background-color: var(--#{$prefix}modal-backdrop, rgba(0, 0, 0, 0.5));
 
   .modal-content {
-    border-left-width: 6px;
-
-    &.modal-border-left-success {
-      border-left-color: var(--#{$prefix}success);
-    }
-
-    &.modal-border-left-danger {
-      border-left-color: var(--#{$prefix}danger);
-    }
-
-    &.modal-border-left-info {
-      border-left-color: var(--#{$prefix}info);
-    }
+    border-left-width: var(--#{$prefix}left-window-border-width);
 
     &.modal-border-left-warning {
-      border-left-color: var(--#{$prefix}warning);
-    }
-
-    .modal-title {
-      margin-left: 1rem;
+      border-left-color: var(--#{$prefix}brown);
     }
 
     .modal-footer {

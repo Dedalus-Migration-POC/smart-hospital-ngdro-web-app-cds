@@ -5,21 +5,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { ModalComponent } from './modal/modal.component';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
-  declarations: [
-    ModalComponent,
-    LoadSpinnerComponent
-  ],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    FontAwesomeModule
-  ],
-  exports: [
-    ModalComponent,
-    LoadSpinnerComponent
-  ]
+  declarations: [ModalComponent, LoadSpinnerComponent, AlertComponent],
+  imports: [CommonModule, TranslateModule, FontAwesomeModule],
+  exports: [ModalComponent, LoadSpinnerComponent, AlertComponent],
 })
 export class ComponentsModule {}
-

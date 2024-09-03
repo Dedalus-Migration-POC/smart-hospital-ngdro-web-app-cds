@@ -24,7 +24,7 @@
   },
   "home": {
     "reportService": "Servizio referti online",
-    "viewDownload": "Consulta e scarica i referti degli esami\neffettuati presso le nostre sedi.",
+    "viewDownload": "Consulta e scarica i referti degli esami<br>effettuati presso le nostre sedi.",
     "cardReport": {
       "pickup": "Ritiro referto",
       "form": {
@@ -45,13 +45,19 @@
   "report": {
     "download": "Scarica",
     "print": "Stampa",
+    "partialReport": "Referto parziale",
     "releaseDate": "Creato il {{date}} alle {{time}}",
     "card": {
       "view": "Visualizza",
       "viewing": "Stai visualizzando"
     },
     "notFound": "Documento non trovato nel repository (XDS o Zeeromed)",
-    "externalDicomError": "Impossibile recuperare link per visualizzare il file DICOM"
+    "externalDicomError": "Impossibile recuperare link per visualizzare il file DICOM",
+    "statusPartial": {
+      "title": "Referti non disponibili",
+      "list-report-content": "Alcuni referti non sono attualmente disponibili. <br> Stiamo lavorando per renderli accessibili il prima <br> possibile",
+      "report-content": "Il referto attuale è incompleto. Verrà sostituito <br> con la versione completa il prima possibile."
+    }
   },
   "footer": {
     "project": "Progetto di",

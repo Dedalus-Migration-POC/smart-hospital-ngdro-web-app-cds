@@ -1,19 +1,27 @@
-import {ChangeDetectorRef, Component, OnInit, ViewContainerRef} from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { it } from 'date-fns/locale';
 
-import { Report, MimeTypeEnum, PdfReport, Repository, Dicom, LinkExternalDicom } from '../../models/report';
+import {
+  Dicom,
+  LinkExternalDicom,
+  MimeTypeEnum,
+  PdfReport,
+  Report,
+  ReportStatus,
+  Repository,
+} from '../../models/report';
 import { SessionService } from '../../services/session.service';
 import { ReportService } from '../../services/report.service';
 import { format, parseISO } from 'date-fns';
-import { Type } from "../../models/modal";
-import { TranslateService } from "@ngx-translate/core";
-import { ModalService } from "../../services/modal.service";
+import { Alert, Type } from '../../models/modal-alert';
+import { TranslateService } from '@ngx-translate/core';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss']
+  styleUrls: ['./report.component.scss'],
 })
 export class ReportComponent implements OnInit {
   report: Report | undefined;
@@ -26,29 +34,48 @@ export class ReportComponent implements OnInit {
 
   loadingReport = false;
   hasDicom: boolean = false;
-  releaseDate: { date: string, time: string } | undefined;
+  isPartialStatus: boolean = false;
+  releaseDate: { date: string; time: string } | undefined;
+  alertReportPartial!: Alert;
 
-  constructor(private sessionService: SessionService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private reportService: ReportService,
-              private modalService: ModalService,
-              private viewContainerRef: ViewContainerRef,
-              private translateService: TranslateService) { }
+  constructor(
+    private sessionService: SessionService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private reportService: ReportService,
+    private modalService: ModalService,
+    private viewContainerRef: ViewContainerRef,
+    private translateService: TranslateService
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.subscribe((params) => {
       const reportId = params.get('id');
       if (reportId) {
         const reports = this.sessionService.getReports('reports');
         if (reports) {
-          this.report = reports.find(report => report.documentId === reportId);
+          this.report = reports.find(
+            (report) => report.documentId === reportId
+          );
 
           if (this.report) {
-            this.hasDicom = !!(this.report.relatedDocuments && this.report.relatedDocuments.length > 0);
-            if (!this.hasDicom) { // only pdf
+            this.hasDicom = !!(
+              this.report.relatedDocuments &&
+              this.report.relatedDocuments.length > 0
+            );
+            if (!this.hasDicom) {
+              // only pdf
               this.releaseDate = this.getFormatData(this.report?.releaseDate!);
               this.getPdf(this.report);
+            }
+
+            // check status
+            this.isPartialStatus =
+              this.report?.additionalInfo?.['result-status'] ===
+              ReportStatus.PARTIAL;
+
+            if (this.isPartialStatus) {
+              this.setAlertPartialStatus();
             }
           } else {
             console.error('Report not found');
@@ -85,65 +112,71 @@ export class ReportComponent implements OnInit {
   }
 
   getPdf(report: Report): void {
-    this.reportService.getPdf({
-      documentId: report.documentId,
-      repositoryId: report.repositoryId
-    }).subscribe({
-      next: (data: PdfReport) => {
-        this.loadingReport = false;
-
-        if (data)
-          this.pdf = data;
-      },
-      error: () => {
-        this.loadingReport = false;
-        this.pdf = undefined;
-
-        this.modalService.open(this.viewContainerRef, {
-          type: Type.WARNING,
-          title: this.translateService.instant('warning'),
-          body: this.translateService.instant('report.notFound'),
-          centered: true
-        });
-      }
-    });
-  }
-
-  getDicom(report: Report): void {
-    const getLinkDicom = (documentId: string, repositoryId: string) => {
-      this.reportService.getExternalDicom({
-        documentId,
-        repositoryId
-      }).subscribe({
-        next: (data: LinkExternalDicom) => {
+    this.reportService
+      .getPdf({
+        documentId: report.documentId,
+        repositoryId: report.repositoryId,
+      })
+      .subscribe({
+        next: (data: PdfReport) => {
           this.loadingReport = false;
-          if (data && data.body.downloadUrl) {
-            this.dicom = {
-              name: report.name,
-              url: data.body.downloadUrl
-            };
-          }
+
+          if (data) this.pdf = data;
         },
         error: () => {
           this.loadingReport = false;
-          this.dicom = undefined;
+          this.pdf = undefined;
 
           this.modalService.open(this.viewContainerRef, {
             type: Type.WARNING,
             title: this.translateService.instant('warning'),
-            body: this.translateService.instant('report.externalDicomError'),
-            centered: true
+            body: this.translateService.instant('report.notFound'),
+            centered: true,
           });
-        }
+        },
       });
+  }
+
+  getDicom(report: Report): void {
+    const getLinkDicom = (documentId: string, repositoryId: string) => {
+      this.reportService
+        .getExternalDicom({
+          documentId,
+          repositoryId,
+        })
+        .subscribe({
+          next: (data: LinkExternalDicom) => {
+            this.loadingReport = false;
+            if (data && data.body.downloadUrl) {
+              this.dicom = {
+                name: report.name,
+                url: data.body.downloadUrl,
+              };
+            }
+          },
+          error: () => {
+            this.loadingReport = false;
+            this.dicom = undefined;
+
+            this.modalService.open(this.viewContainerRef, {
+              type: Type.WARNING,
+              title: this.translateService.instant('warning'),
+              body: this.translateService.instant('report.externalDicomError'),
+              icon: ['fas', 'circle-exclamation'],
+              iconClass: 'text-brown',
+              centered: true,
+            });
+          },
+        });
     };
 
-    if (report?.referenceId) { // first time with ZEEROMED
+    if (report?.referenceId) {
+      // first time with ZEEROMED
       this.loadingReport = false;
 
       this.dicom = {
         name: report.name,
-        url: report?.referenceId ?? ''
+        url: report?.referenceId ?? '',
       };
 
       /**
@@ -153,10 +186,10 @@ export class ReportComponent implements OnInit {
 
       // Update the reports object in the session
       const reports = this.sessionService.getReports('reports') || [];
-      const updatedReports = reports.map(r => {
+      const updatedReports = reports.map((r) => {
         if (r.documentId === this.report?.documentId) {
           if (r.relatedDocuments) {
-            r.relatedDocuments = r.relatedDocuments.map(rd => {
+            r.relatedDocuments = r.relatedDocuments.map((rd) => {
               if (rd.documentId === report.documentId) {
                 delete rd.referenceId;
               }
@@ -170,21 +203,42 @@ export class ReportComponent implements OnInit {
 
       this.sessionService.saveReports('reports', updatedReports);
       delete report.referenceId;
-
-    } else if (!report.repositoryId || report.repositoryId === Repository.ZEEROMED) {
+    } else if (
+      !report.repositoryId ||
+      report.repositoryId === Repository.ZEEROMED
+    ) {
       getLinkDicom(report.documentId, Repository.EXTERNAL_DICOM);
     } else if (report.repositoryId === Repository.EXTERNAL_DICOM) {
       getLinkDicom(report.documentId, Repository.EXTERNAL_DICOM);
     }
   }
 
-  private getFormatData(data: string): { date: string, time: string } | undefined {
-    if (!data) { return; }
+  private getFormatData(
+    data: string
+  ): { date: string; time: string } | undefined {
+    if (!data) {
+      return;
+    }
 
     const date = parseISO(data);
     const formattedDate = format(date, 'dd MMM yyyy', { locale: it });
     const formattedTime = format(date, 'HH:mm');
 
     return { date: formattedDate, time: formattedTime };
+  }
+
+  private setAlertPartialStatus() {
+    this.translateService.get('report.statusPartial.title').subscribe(() => {
+      this.alertReportPartial = {
+        title: this.translateService.instant('report.statusPartial.title'),
+        body: this.translateService.instant(
+          'report.statusPartial.report-content'
+        ),
+        icon: ['fas', 'circle-exclamation'],
+        iconClass: 'text-brown',
+        type: Type.WARNING,
+        styleClass: 'mx-2 my-0',
+      };
+    });
   }
 }

@@ -15,6 +15,12 @@
     </div>
   </div>
 
+  <div *ngIf="isPartialStatus" class="row gt-0 mb-3">
+    <div class="col-12 col-lg-6">
+      <app-alert [alert]="alertReportPartial"></app-alert>
+    </div>
+  </div>
+
   <div *ngIf="hasDicom; else onlyPdf" class="position-relative h-100 d-flex flex-column">
     <app-card [report]="report" (showReport)="showReport($event)"></app-card>
 
@@ -40,16 +46,11 @@
 
 
   <ng-template #loading>
-    <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+    <div *ngIf="loadingReport" class="flex-grow-1 d-flex justify-content-center align-items-center">
       <div class="position-absolute top-0 h-100 w-100 pe-0 z-3"></div>
       <app-load-spinner class="py-3"
                         [showLabel]="true"
                         styleClass="text-yellow"></app-load-spinner>
     </div>
-
-  </ng-template>
-
-  <ng-template #errorDicom>
-    <label>{{ 'report.externalDicomError' | translate }}</label>
   </ng-template>
 </div>

@@ -76,6 +76,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /****** NEW CLASSES *****/
 
+// Cursor
+
+.cursor-default {
+  cursor: default !important;
+}
+
 // BG and color YELLOW (amber)
 
 .bg-yellow {
@@ -84,6 +90,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .text-yellow {
   color: var(--#{$prefix}yellow, #e1ad18);
+}
+
+// BG and color BROWN
+
+//.bg-brown {
+//  background-color: var(--#{$prefix}brown, #995C00);
+//}
+
+.text-brown {
+  color: var(--#{$prefix}brown, #995C00);
 }
 
 // Font-size
@@ -101,5 +117,11 @@ h1, h2, h3, h4, h5, h6 {
 :root {
   --#{$prefix}font-size-sm: #{$font-size-sm};
   --#{$prefix}font-size-lg: #{$font-size-lg};
+
+  --#{$prefix}modal-backdrop: #{$modal-backdrop};
+
+  --#{$prefix}brown: #{$brown};
+
+  --#{$prefix}left-window-border-width: #{$left-window-border-width}
 }
 

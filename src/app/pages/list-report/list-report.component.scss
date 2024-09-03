@@ -6,3 +6,19 @@
     width: 35% !important;
   }
 }
+
+.report:hover {
+ background-color: var(--#{$prefix}gray-100, #F5F5F5);
+}
+
+.badge-report-partial {
+  background-color: var(--#{$prefix}gray-100, #F5F5F5);
+
+  &.border {
+    --#{$prefix}border-color: #C5C7C9;
+  }
+
+  .icon {
+    color: var(--#{$prefix}gray-500, #5c6f82);
+  }
+}

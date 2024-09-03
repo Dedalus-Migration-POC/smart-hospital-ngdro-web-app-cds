@@ -1,10 +1,10 @@
 import { Injectable, ComponentRef, ViewContainerRef } from '@angular/core';
 
 import { ModalComponent } from '../components/modal/modal.component';
-import { Modal } from '../models/modal';
+import { Modal } from '../models/modal-alert';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ModalService {
   private modalRef: ComponentRef<ModalComponent> | null = null;

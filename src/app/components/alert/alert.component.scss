@@ -1,0 +1,11 @@
+@import "shared-variables";
+
+.alert {
+  --#{$prefix}alert-border-color: var(--#{$prefix}brown);
+
+    border-left-width: var(--#{$prefix}left-window-border-width);
+
+    &.alert-border-left-warning {
+      border-left-color: var(--#{$prefix}alert-border-color);
+    }
+}

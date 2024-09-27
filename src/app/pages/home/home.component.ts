@@ -3,7 +3,7 @@ import { ModalService } from '../../services/modal.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Report, ReportRequest } from '../../models/report';
+import { ReportRequest, ReportSummary } from '../../models/report';
 import { ReportService } from '../../services/report.service';
 import { SessionService } from '../../services/session.service';
 import { Type } from '../../models/modal-alert';
@@ -37,10 +37,10 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
 
     this.reportService.findReports(formData).subscribe({
-      next: (data: Array<Report>) => {
+      next: (data: ReportSummary) => {
         this.isLoading = false;
 
-        if (data.length === 0) {
+        if (data && data.documents.length === 0) {
           this.modalService.open(this.viewContainerRef, {
             type: Type.WARNING,
             title: this.translateService.instant('warning'),
@@ -52,11 +52,11 @@ export class HomeComponent implements OnInit {
             centered: true,
           });
         } else {
-          this.sessionService.saveReports('reports', data);
+          this.sessionService.saveReportSummary('reportSummary', data);
 
-          if (data.length === 1) {
-            this.router.navigate(['/report', data[0].documentId]);
-          } else if (data.length > 1) {
+          if (data.documents.length === 1) {
+            this.router.navigate(['/report', data.documents[0].documentId]);
+          } else if (data.documents.length > 1) {
             this.router.navigate(['/list-report']);
           }
         }

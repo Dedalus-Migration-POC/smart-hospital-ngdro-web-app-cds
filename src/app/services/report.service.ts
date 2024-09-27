@@ -1,24 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
-import { Report, ReportRequest, PdfRequest, PdfReport, LinkExternalDicom } from '../models/report';
+import {
+  ReportRequest,
+  PdfRequest,
+  PdfReport,
+  LinkExternalDicom,
+  ReportSummary,
+} from '../models/report';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ReportService {
   private readonly BASE_URL = 'health-repository/api/archive';
 
   constructor(private http: HttpClient) {}
 
-  findReports(request: ReportRequest): Observable<Array<Report>> {
-    return this.http.post<{ documents?: Array<Report> }>(
-      `${this.BASE_URL}/find-documents`,
-      request
-    ).pipe(
-      map(response => response.documents || [])
-    );
+  findReports(request: ReportRequest): Observable<ReportSummary> {
+    return this.http
+      .post<ReportSummary>(`${this.BASE_URL}/find-documents`, request)
+      .pipe(
+        map((response) => {
+          if (response) {
+            return response;
+          } else {
+            console.error('Invalid response findReports');
+            throw new Error('Invalid response: reportSummary is undefined');
+          }
+        })
+      );
   }
 
   getPdf(request: PdfRequest): Observable<PdfReport> {

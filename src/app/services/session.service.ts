@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
 
-import { Report } from '../models/report';
+import { ReportSummary } from '../models/report';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SessionService {
+  constructor() {}
 
-  constructor() { }
-
-  saveReports(key: string, value: Array<Report>): void {
+  saveReportSummary(key: string, value: ReportSummary): void {
     sessionStorage.setItem(key, JSON.stringify(value));
   }
 
-  getReports(key: string): Array<Report> {
+  getReportSummary(key: string): ReportSummary {
     const data = sessionStorage.getItem(key);
     return data ? JSON.parse(data) : [];
   }
 
   getReportCount(key: string): number {
-    const reports = this.getReports(key);
-    return reports.length;
+    const reportSummery = this.getReportSummary(key);
+    if (reportSummery.documents) {
+      return reportSummery.documents.length;
+    }
+
+    return 0;
   }
 
   clearAll(): void {

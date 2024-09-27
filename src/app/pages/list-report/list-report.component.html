@@ -14,23 +14,23 @@
     </div>
   </div>
 
-  <div *ngIf="hasPartialReports" class="row gt-0 mb-3">
+  <div *ngIf="reportSummary.resultStatus === ReportStatus.PARTIAL" class="row gt-0 mb-3">
     <div class="col-12 col-lg-6">
-      <app-alert [alert]="alertReportPartial"></app-alert>
+      <app-alert [alert]="alert"></app-alert>
     </div>
   </div>
 
   <div class="row gt-0 mb-3">
     <div class="col-12 col-lg-6">
       <div class="list-group">
-        <a href="javascript:void(0)" *ngFor="let report of reports" class="report list-group-item list-group-item-action border-end-0 border-start-0 border-top-0" (click)="goToReport(report.documentId)">
+        <a href="javascript:void(0)" *ngFor="let report of reportSummary.documents" class="report list-group-item list-group-item-action border-end-0 border-start-0 border-top-0" (click)="goToReport(report.documentId)">
           <div class="d-flex flex-row align-items-center justify-content-between">
             <div class="d-flex flex-column gap-2">
               <div>
                 <h6 class="lh-base text-primary mb-0">{{report.name}}</h6>
                 <small>{{ 'list-report.released' | translate }} {{ formatDate(report.releaseDate) }}</small>
               </div>
-              <span *ngIf="report?.additionalInfo?.['result-status'] === ReportStatus.PARTIAL" class="badge-report-partial badge badge-pill border">
+              <span *ngIf="report.workflowStatus === ReportWorkflowStatus.PARTIALLY_DELIVERED" class="badge-report-partial badge badge-pill border">
                 <fa-icon [icon]="['fas', 'exclamation']" class="icon me-2"></fa-icon>
                 <span>{{'report.partialReport' | translate}}</span>
               </span>

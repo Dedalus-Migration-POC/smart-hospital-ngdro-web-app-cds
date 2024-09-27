@@ -40,24 +40,26 @@
   },
   "list-report": {
     "reports": "Esami effettuati",
-    "released": "Referto del"
+    "released": "Referto del",
+    "unvailable": {
+      "title": "Referti non disponibili",
+      "content": "Alcuni referti non sono attualmente disponibili."
+    }
   },
   "report": {
     "download": "Scarica",
     "print": "Stampa",
-    "partialReport": "Referto parziale",
+    "partial": {
+      "title": "Referto parziale",
+      "content": "Il referto verrà sostituito con la versione completa il prima possibile."
+    },
     "releaseDate": "Creato il {{date}} alle {{time}}",
     "card": {
       "view": "Visualizza",
       "viewing": "Stai visualizzando"
     },
     "notFound": "Documento non trovato nel repository (XDS o Zeeromed)",
-    "externalDicomError": "Impossibile recuperare link per visualizzare il file DICOM",
-    "statusPartial": {
-      "title": "Referti non disponibili",
-      "list-report-content": "Alcuni referti non sono attualmente disponibili. <br> Stiamo lavorando per renderli accessibili il prima <br> possibile",
-      "report-content": "Il referto attuale è incompleto. Verrà sostituito <br> con la versione completa il prima possibile."
-    }
+    "externalDicomError": "Impossibile recuperare link per visualizzare il file DICOM"
   },
   "footer": {
     "project": "Progetto di",

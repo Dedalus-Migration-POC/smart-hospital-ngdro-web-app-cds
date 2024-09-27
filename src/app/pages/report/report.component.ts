@@ -8,7 +8,7 @@ import {
   MimeTypeEnum,
   PdfReport,
   Report,
-  ReportStatus,
+  ReportWorkflowStatus,
   Repository,
 } from '../../models/report';
 import { SessionService } from '../../services/session.service';
@@ -31,12 +31,12 @@ export class ReportComponent implements OnInit {
   dicom: Dicom | undefined;
 
   MimeTypeEnum = MimeTypeEnum;
+  ReportWorkflowStatus = ReportWorkflowStatus;
 
   loadingReport = false;
   hasDicom: boolean = false;
-  isPartialStatus: boolean = false;
   releaseDate: { date: string; time: string } | undefined;
-  alertReportPartial!: Alert;
+  alert!: Alert;
 
   constructor(
     private sessionService: SessionService,
@@ -52,9 +52,10 @@ export class ReportComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       const reportId = params.get('id');
       if (reportId) {
-        const reports = this.sessionService.getReports('reports');
-        if (reports) {
-          this.report = reports.find(
+        const reportSummary =
+          this.sessionService.getReportSummary('reportSummary');
+        if (reportSummary && reportSummary.documents.length) {
+          this.report = reportSummary.documents.find(
             (report) => report.documentId === reportId
           );
 
@@ -63,19 +64,19 @@ export class ReportComponent implements OnInit {
               this.report.relatedDocuments &&
               this.report.relatedDocuments.length > 0
             );
+
             if (!this.hasDicom) {
               // only pdf
               this.releaseDate = this.getFormatData(this.report?.releaseDate!);
               this.getPdf(this.report);
             }
 
-            // check status
-            this.isPartialStatus =
-              this.report?.additionalInfo?.['result-status'] ===
-              ReportStatus.PARTIAL;
-
-            if (this.isPartialStatus) {
-              this.setAlertPartialStatus();
+            // status
+            if (
+              this.report.workflowStatus ===
+              ReportWorkflowStatus.PARTIALLY_DELIVERED
+            ) {
+              this.setAlertPartialReport();
             }
           } else {
             console.error('Report not found');
@@ -138,45 +139,13 @@ export class ReportComponent implements OnInit {
   }
 
   getDicom(report: Report): void {
-    const getLinkDicom = (documentId: string, repositoryId: string) => {
-      this.reportService
-        .getExternalDicom({
-          documentId,
-          repositoryId,
-        })
-        .subscribe({
-          next: (data: LinkExternalDicom) => {
-            this.loadingReport = false;
-            if (data && data.body.downloadUrl) {
-              this.dicom = {
-                name: report.name,
-                url: data.body.downloadUrl,
-              };
-            }
-          },
-          error: () => {
-            this.loadingReport = false;
-            this.dicom = undefined;
-
-            this.modalService.open(this.viewContainerRef, {
-              type: Type.WARNING,
-              title: this.translateService.instant('warning'),
-              body: this.translateService.instant('report.externalDicomError'),
-              icon: ['fas', 'circle-exclamation'],
-              iconClass: 'text-brown',
-              centered: true,
-            });
-          },
-        });
-    };
-
-    if (report?.referenceId) {
+    if (report?.referenceId && report.repositoryId === Repository.ZEEROMED) {
       // first time with ZEEROMED
       this.loadingReport = false;
 
       this.dicom = {
         name: report.name,
-        url: report?.referenceId ?? '',
+        url: report.referenceId,
       };
 
       /**
@@ -185,8 +154,9 @@ export class ReportComponent implements OnInit {
        */
 
       // Update the reports object in the session
-      const reports = this.sessionService.getReports('reports') || [];
-      const updatedReports = reports.map((r) => {
+      const reportSummary =
+        this.sessionService.getReportSummary('reportSummary');
+      reportSummary.documents.map((r) => {
         if (r.documentId === this.report?.documentId) {
           if (r.relatedDocuments) {
             r.relatedDocuments = r.relatedDocuments.map((rd) => {
@@ -201,15 +171,16 @@ export class ReportComponent implements OnInit {
         return r;
       });
 
-      this.sessionService.saveReports('reports', updatedReports);
-      delete report.referenceId;
+      this.sessionService.saveReportSummary('reportSummary', reportSummary);
     } else if (
-      !report.repositoryId ||
-      report.repositoryId === Repository.ZEEROMED
+      report.repositoryId === Repository.ZEEROMED ||
+      report.repositoryId === Repository.EXTERNAL_DICOM
     ) {
-      getLinkDicom(report.documentId, Repository.EXTERNAL_DICOM);
-    } else if (report.repositoryId === Repository.EXTERNAL_DICOM) {
-      getLinkDicom(report.documentId, Repository.EXTERNAL_DICOM);
+      this.setExternalDicom(
+        report.documentId,
+        Repository.EXTERNAL_DICOM,
+        report.name
+      );
     }
   }
 
@@ -227,18 +198,51 @@ export class ReportComponent implements OnInit {
     return { date: formattedDate, time: formattedTime };
   }
 
-  private setAlertPartialStatus() {
-    this.translateService.get('report.statusPartial.title').subscribe(() => {
-      this.alertReportPartial = {
-        title: this.translateService.instant('report.statusPartial.title'),
-        body: this.translateService.instant(
-          'report.statusPartial.report-content'
-        ),
-        icon: ['fas', 'circle-exclamation'],
-        iconClass: 'text-brown',
-        type: Type.WARNING,
-        styleClass: 'mx-2 my-0',
-      };
-    });
+  private setAlertPartialReport() {
+    this.alert = {
+      title: this.translateService.instant('report.partial.title'),
+      body: this.translateService.instant('report.partial.content'),
+      icon: ['fas', 'circle-exclamation'],
+      iconClass: 'text-brown',
+      type: Type.WARNING,
+      styleClass: 'mx-2 my-0',
+    };
+  }
+
+  private setExternalDicom(
+    documentId: string,
+    repositoryId: string,
+    name: string
+  ) {
+    this.reportService
+      .getExternalDicom({
+        documentId,
+        repositoryId,
+      })
+      .subscribe({
+        next: (data: LinkExternalDicom) => {
+          this.loadingReport = false;
+
+          if (data && data.body.downloadUrl) {
+            this.dicom = {
+              name: name,
+              url: data.body.downloadUrl,
+            };
+          }
+        },
+        error: () => {
+          this.loadingReport = false;
+          this.dicom = undefined;
+
+          this.modalService.open(this.viewContainerRef, {
+            type: Type.WARNING,
+            title: this.translateService.instant('warning'),
+            body: this.translateService.instant('report.externalDicomError'),
+            icon: ['fas', 'circle-exclamation'],
+            iconClass: 'text-brown',
+            centered: true,
+          });
+        },
+      });
   }
 }

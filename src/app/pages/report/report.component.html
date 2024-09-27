@@ -15,9 +15,9 @@
     </div>
   </div>
 
-  <div *ngIf="isPartialStatus" class="row gt-0 mb-3">
+  <div *ngIf="report.workflowStatus === ReportWorkflowStatus.PARTIALLY_DELIVERED" class="row gt-0 mb-3">
     <div class="col-12 col-lg-6">
-      <app-alert [alert]="alertReportPartial"></app-alert>
+      <app-alert [alert]="alert"></app-alert>
     </div>
   </div>
 

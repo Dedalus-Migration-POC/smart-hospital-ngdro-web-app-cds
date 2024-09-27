@@ -9,8 +9,13 @@ export enum Repository {
 }
 
 export enum ReportStatus {
-  COMPLETE = 'completo',
-  PARTIAL = 'parziale',
+  COMPLETE = 'COMPLETE',
+  PARTIAL = 'PARTIAL',
+}
+
+export enum ReportWorkflowStatus {
+  DELIVERED = 'DELIVERED',
+  PARTIALLY_DELIVERED = 'PARTIALLY_DELIVERED',
 }
 
 // Find documents
@@ -20,6 +25,12 @@ export type ReportRequest = {
   securityCode: string;
 };
 
+export interface ReportSummary {
+  additionalInfo: AdditionalInfo;
+  documents: Report[];
+  resultStatus: ReportStatus;
+}
+
 export type Report = {
   documentId: string;
   repositoryId: string;
@@ -28,11 +39,16 @@ export type Report = {
   mimeType: DocumentMimeType;
   releaseDate: string;
   relatedDocuments?: Report[];
-  additionalInfo: {
-    size: string;
-    'result-status': ReportStatus;
-  };
+  workflowStatus: ReportWorkflowStatus;
+  size: string;
 };
+
+export interface AdditionalInfo {
+  TO_BE_DELIVERED: {
+    code: string;
+    label: string;
+  }[];
+}
 
 export type DocumentMimeType = 'application/pdf' | 'application/dicom';
 

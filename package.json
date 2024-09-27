@@ -1,7 +1,7 @@
 {
   "name": "web-app-cds",
   "description": "Casa della Salute",
-  "version": "1.0.0.alpha-2",
+  "version": "1.0.0.alpha-3",
   "projectType": "application",
   "scripts": {
     "ng": "ng",

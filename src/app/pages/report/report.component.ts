@@ -87,7 +87,7 @@ export class ReportComponent implements OnInit {
   }
 
   goBack(): void {
-    const reportCount = this.sessionService.getReportCount('reports');
+    const reportCount = this.sessionService.getReportCount('reportSummary');
     if (reportCount > 1) {
       this.router.navigate(['/list-report']);
     } else {

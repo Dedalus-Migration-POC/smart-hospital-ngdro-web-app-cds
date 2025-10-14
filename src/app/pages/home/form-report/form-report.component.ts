@@ -16,21 +16,21 @@ export class FormReportComponent implements OnInit {
   constructor() {
     this.form = new FormGroup({
       securityCode: new FormControl('', Validators.required),
-      patientId: new FormControl({ value: '', disabled: true }, Validators.required)
+      patientId: new FormControl('', Validators.required)
     });
   }
 
   ngOnInit() {
-    this.form.get('securityCode')?.valueChanges.subscribe(value => {
-      const fiscalControl = this.form.get('patientId');
-      if (fiscalControl) {
-        if (value && value.trim() !== '') {
-          fiscalControl.enable();
-        } else {
-          fiscalControl.disable();
-        }
-      }
-    });
+    // this.form.get('securityCode')?.valueChanges.subscribe(value => {
+    //   const fiscalControl = this.form.get('patientId');
+    //   if (fiscalControl) {
+    //     if (value && value.trim() !== '') {
+    //       fiscalControl.enable();
+    //     } else {
+    //       fiscalControl.disable();
+    //     }
+    //   }
+    // });
   }
 
   onSubmit() {

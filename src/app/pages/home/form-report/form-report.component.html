@@ -2,28 +2,56 @@
   <div class="card-body">
     <div class="d-flex flex-row justify-content-between gap-4">
       <div class="d-flex flex-column flex-grow-1">
-        <h4 class="card-title lh-base mb-4">{{ 'home.cardReport.pickup' | translate }}</h4>
+        <h4 class="card-title lh-base mb-4">
+          {{ "home.cardReport.pickup" | translate }}
+        </h4>
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="form-floating">
-            <input formControlName="securityCode" type="text" class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
-                   id="floatingCod" placeholder="{{ 'home.cardReport.form.pickupCode' | translate }}">
-            <label for="floatingCod" class="d-flex align-items-center fw-normal">{{ 'home.cardReport.form.pickupCode' | translate }}</label>
+            <input
+              formControlName="patientId"
+              type="text"
+              class="form-control text-uppercase shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+              id="floatingCf"
+              placeholder="{{ 'home.cardReport.form.cf' | translate }}"
+            />
+            <label
+              for="floatingCf"
+              class="d-flex align-items-center fw-normal"
+              >{{ "home.cardReport.form.cf" | translate }}</label
+            >
           </div>
-          <small class="d-block pick-code-validation">{{ 'home.cardReport.form.pickupCodeValidation' | translate }}</small>
-
           <div class="form-floating mt-4">
-            <input formControlName="patientId" type="text" class="form-control text-uppercase shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
-                   id="floatingCf" placeholder="{{ 'home.cardReport.form.cf' | translate }}">
-            <label for="floatingCf" class="d-flex align-items-center fw-normal">{{ 'home.cardReport.form.cf' | translate }}</label>
+            <input
+              formControlName="securityCode"
+              type="text"
+              class="form-control shadow-none border-top-0 border-end-0 border-start-0 rounded-bottom-0 rounded-top-0"
+              id="floatingCod"
+              placeholder="{{ 'home.cardReport.form.pickupCode' | translate }}"
+            />
+            <label
+              for="floatingCod"
+              class="d-flex align-items-center fw-normal"
+              >{{ "home.cardReport.form.pickupCode" | translate }}</label
+            >
           </div>
-
-          <button class="btn btn-primary mt-5 card__btn-view fw-semibold" type="submit" [disabled]="!form.valid">
-              {{ 'home.cardReport.form.viewPdf' | translate }}
+          <small class="d-block pick-code-validation">{{
+            "home.cardReport.form.pickupCodeValidation" | translate
+          }}</small>
+          <button
+            class="btn btn-primary mt-5 card__btn-view fw-semibold"
+            type="submit"
+            [disabled]="!form.valid"
+          >
+            {{ "home.cardReport.form.viewPdf" | translate }}
           </button>
         </form>
       </div>
-      <app-image src="card-report.svg" styleClass="card__img-report d-none d-sm-block" alt="report"></app-image>
+      <app-image
+        src="card-report.svg"
+        styleClass="card__img-report d-none d-sm-block"
+        alt="report"
+      ></app-image>
     </div>
   </div>
 </div>

@@ -38,14 +38,19 @@ export class ListReportComponent implements OnInit {
 
   setAlertReportsUnvailable(): void {
     // some reports are not available, e.g., out of a list of 3 documents only 2 are ready
-    this.alert = {
-      title: this.translateService.instant('list-report.unvailable.title'),
-      body: this.translateService.instant('list-report.unvailable.content'),
-      icon: ['fas', 'circle-exclamation'],
-      iconClass: 'text-brown',
-      type: Type.WARNING,
-      styleClass: 'mx-2 my-0',
-    };
+
+    this.translateService
+      .get(['warning', 'list-report.unvailable.content'])
+      .subscribe((translations) => {
+        this.alert = {
+          title: translations['warning'],
+          body: translations['list-report.unvailable.content'],
+          icon: ['fas', 'circle-exclamation'],
+          iconClass: 'text-brown',
+          type: Type.WARNING,
+          styleClass: 'mx-2 my-0',
+        };
+      });
   }
 
   formatDate(date: string): string {

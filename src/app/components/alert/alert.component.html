@@ -1,9 +1,25 @@
-<div class="alert {{'alert-border-left-' + alert.type | lowercase  }}" [ngClass]="alert.styleClass" role="alert">
-  <div class="d-flex align-items-center gap-2">
-    <fa-icon *ngIf="alert.icon" [icon]="alert.icon" class="fs-3 align-self-start" [ngClass]="alert.iconClass"></fa-icon>
-    <div class="mt-1 cursor-default">
-      <label class="alert-heading h4 mb-3 cursor-default">{{ alert.title }}</label>
-      <p [innerHTML]="alert.body" class="mb-0 cursor-default"></p>
+<ng-container *ngIf="alert">
+  <div
+    class="alert"
+    [ngClass]="[
+      alert.styleClass ? alert.styleClass : '',
+      alert.type ? 'alert-border-left-' + (alert.type | lowercase) : ''
+    ]"
+    role="alert"
+  >
+    <div class="d-flex align-items-center gap-2">
+      <fa-icon
+        *ngIf="alert.icon"
+        [icon]="alert.icon"
+        class="fs-3 align-self-start"
+        [ngClass]="alert.iconClass"
+      ></fa-icon>
+      <div class="mt-1 cursor-default">
+        <label class="alert-heading h4 mb-3 cursor-default fw-bold">{{
+          alert.title
+        }}</label>
+        <p [innerHTML]="alert.body" class="mb-0 cursor-default"></p>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>

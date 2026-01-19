@@ -33,7 +33,7 @@
         "cf": "Codice fiscale",
         "viewPdf": "Visualizza referto",
         "emptyListReport": "Nessun referto trovato",
-        "notFound": "Il recupero del referto non è andato a buon fine. La preghiamo di riprovare controllando i dati inseriti.<br><br>Di seguito le cause per il cui l'accesso non è andato a buon fine:<br><ul class=\"mb-0\"><li>I referti afferenti alla richiesta non sono ancora stati pubblicati.</li><li>Il codice ritiro è scaduto (scade dopo 45 giorni dalla pubblicazione).</li><li>Errore nell'inserimento del codice ritiro.</li><li>Errore nell'inserimento del codice fiscale.</li></ul><br>In caso di necessità la invitiamo a contattare il CUP di CdS."
+        "notFound": "<span class=\"fst-italic\">L'accesso al referto non è andato a buon fine. <br><br>Di seguito le possibili cause:<br><ul class=\"mb-0\"><li>Errore nell'inserimento del codice ritiro</li><li>Errore nell'inserimento del codice fiscale</li><li>Codice ritiro scaduto (verifica la data di scadenza sullo scontrino)</li></ul><br>In caso di necessità la invitiamo a contattarci.</span>"
       }
     },
     "faq": "FAQ - Domande frequenti"
@@ -42,8 +42,7 @@
     "reports": "Esami effettuati",
     "released": "Referto del",
     "unvailable": {
-      "title": "Referti non disponibili",
-      "content": "Alcuni referti non sono attualmente disponibili."
+      "content": "<span class=\"fst-italic\">Il referto non è ancora disponibile. <br> La invitiamo ad attendere l'SMS di conferma.</span>"
     }
   },
   "report": {

@@ -1,41 +1,70 @@
 <div class="container d-flex flex-column">
   <div class="row gt-0 my-3">
     <div class="col-12">
-      <button type="button" class="btn btn-link text-decoration-none px-2 py-0 fw-semibold fs-sm" (click)="goBack()">
+      <button
+        type="button"
+        class="btn btn-link text-decoration-none px-2 py-0 fw-semibold fs-sm"
+        (click)="goBack()"
+      >
         <fa-icon [icon]="['fas', 'arrow-left']"></fa-icon>
-        {{ 'goBack' | translate }}
+        {{ "goBack" | translate }}
       </button>
     </div>
   </div>
 
   <div class="row gt-0 mb-3">
     <div class="col-12">
-      <h2 class="px-2"> {{ 'list-report.reports' | translate }}</h2>
+      <h2 class="px-2">{{ "list-report.reports" | translate }}</h2>
     </div>
   </div>
 
-  <div *ngIf="reportSummary.resultStatus === ReportStatus.PARTIAL" class="row gt-0 mb-3">
+  <div
+    class="row gt-0 mb-3"
+    *ngIf="reportSummary.resultStatus === ReportStatus.PARTIAL"
+  >
     <div class="col-12 col-lg-6">
       <app-alert [alert]="alert"></app-alert>
     </div>
   </div>
 
-  <div class="row gt-0 mb-3">
+  <div class="row gt-0 mb-3" *ngIf="reportSummary">
     <div class="col-12 col-lg-6">
       <div class="list-group">
-        <a href="javascript:void(0)" *ngFor="let report of reportSummary.documents" class="report list-group-item list-group-item-action border-end-0 border-start-0 border-top-0" (click)="goToReport(report.documentId)">
-          <div class="d-flex flex-row align-items-center justify-content-between">
+        <a
+          href="javascript:void(0)"
+          *ngFor="let report of reportSummary.documents"
+          class="report list-group-item list-group-item-action border-end-0 border-start-0 border-top-0"
+          (click)="goToReport(report.documentId)"
+        >
+          <div
+            class="d-flex flex-row align-items-center justify-content-between"
+          >
             <div class="d-flex flex-column gap-2">
               <div>
-                <h6 class="lh-base text-primary mb-0">{{report.name}}</h6>
-                <small>{{ 'list-report.released' | translate }} {{ formatDate(report.releaseDate) }}</small>
+                <h6 class="lh-base text-primary mb-0">{{ report.name }}</h6>
+                <small
+                  >{{ "list-report.released" | translate }}
+                  {{ formatDate(report.releaseDate) }}</small
+                >
               </div>
-              <span *ngIf="report.workflowStatus === ReportWorkflowStatus.PARTIALLY_DELIVERED" class="badge-report-partial badge badge-pill border">
-                <fa-icon [icon]="['fas', 'exclamation']" class="icon me-2"></fa-icon>
-                <span>{{'report.partialReport' | translate}}</span>
+              <span
+                *ngIf="
+                  report.workflowStatus ===
+                  ReportWorkflowStatus.PARTIALLY_DELIVERED
+                "
+                class="badge-report-partial badge badge-pill border"
+              >
+                <fa-icon
+                  [icon]="['fas', 'exclamation']"
+                  class="icon me-2"
+                ></fa-icon>
+                <span>{{ "report.partialReport" | translate }}</span>
               </span>
             </div>
-            <fa-icon [icon]="['fas', 'angle-right']" class="text-primary"></fa-icon>
+            <fa-icon
+              [icon]="['fas', 'angle-right']"
+              class="text-primary"
+            ></fa-icon>
           </div>
         </a>
       </div>
@@ -43,4 +72,9 @@
   </div>
 </div>
 
-<app-image src="banner-logo-list-report.svg" class="d-block w-100" styleClass="img-banner-logo float-end" alt="banner-logo"></app-image>
+<app-image
+  src="banner-logo-list-report.svg"
+  class="d-block w-100"
+  styleClass="img-banner-logo float-end"
+  alt="banner-logo"
+></app-image>

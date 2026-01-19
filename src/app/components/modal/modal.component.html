@@ -1,19 +1,33 @@
 <div class="modal d-block">
-  <div class="modal-dialog" [ngClass]="{ 'modal-dialog-centered': modal.centered }">
-      <div class="modal-content {{'modal-border-left-' + modal.type | lowercase  }}" [ngClass]="modal.styleClass" >
-        <div class="modal-header">
-          <fa-icon *ngIf="modal.icon" [icon]="modal.icon" class="fs-3 align-self-start" [ngClass]="modal.iconClass"></fa-icon>
-          <h4 class="modal-title ms-2">{{ modal.title }}</h4>
-        </div>
-        <div *ngIf="modal.body" class="modal-body">
-          <p class="cursor-default"
-             [innerHTML]="modal.body"></p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn btn-outline-primary" (click)="onClose()">
-            {{ 'close' | translate }}
-          </button>
-        </div>
+  <div
+    class="modal-dialog"
+    [ngClass]="{ 'modal-dialog-centered': modal.centered }"
+  >
+    <div
+      class="modal-content {{ 'modal-border-left-' + modal.type | lowercase }}"
+      [ngClass]="modal.styleClass"
+    >
+      <div class="modal-header">
+        <fa-icon
+          *ngIf="modal.icon"
+          [icon]="modal.icon"
+          class="fs-3 align-self-start"
+          [ngClass]="modal.iconClass"
+        ></fa-icon>
+        <h4
+          class="modal-title ms-2 fw-bold text-uppercase text-decoration-underline"
+        >
+          {{ modal.title }}
+        </h4>
       </div>
+      <div *ngIf="modal.body" class="modal-body">
+        <p class="cursor-default" [innerHTML]="modal.body"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn btn-outline-primary" (click)="onClose()">
+          {{ "close" | translate }}
+        </button>
+      </div>
+    </div>
   </div>
 </div>

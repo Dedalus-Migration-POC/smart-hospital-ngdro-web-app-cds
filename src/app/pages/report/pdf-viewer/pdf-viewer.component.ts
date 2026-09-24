@@ -17,7 +17,8 @@ export class PdfViewerComponent implements OnInit {
   constructor() {}
 
   printPDF(): void {
-    printJS({ printable: this.pdf?.body.content, type: 'pdf', base64: this.pdf?.body.encodedBase64 });
+    // encodedBase64 potrebbe mancare nella risposta API; content è sempre in base64, quindi il default è true
+    printJS({ printable: this.pdf?.body.content, type: 'pdf', base64: this.pdf?.body.encodedBase64 ?? true });
   }
 
   downloadPDF(): void {
